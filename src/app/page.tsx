@@ -31,7 +31,7 @@ export default function Home() {
       }
       setUser(currentUser);
 
-      if (currentUser.roles.includes('user') && currentUser.accountId) {
+      if (currentUser.accountId) {
         const currentAccount = getAccount(currentUser.accountId);
         if (!currentAccount) {
           throw new Error('Associated account not found.');

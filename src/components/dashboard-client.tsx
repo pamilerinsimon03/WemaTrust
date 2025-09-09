@@ -26,9 +26,6 @@ export function DashboardClient({
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
   const { toast } = useToast();
 
-  const isUser = user.roles.includes('user');
-  const isAdmin = user.roles.includes('admin');
-
   useEffect(() => {
     const eventSource = new EventSource('/api/events');
     eventSource.onmessage = (event) => {
@@ -107,26 +104,16 @@ export function DashboardClient({
     };
   }, [toast, account]);
 
-  if (isAdmin) {
-    return (
-        <PartnerStatus partnerBanks={partnerBanks} isAdmin={true} />
-    );
-  }
-
-  if (isUser) {
-    return (
-        <div className="grid gap-6 md:gap-8 lg:grid-cols-5">
-            <div className="lg:col-span-3 space-y-6 md:space-y-8">
-                {account && <AccountBalance account={account} />}
-                <TransferForm partnerBanks={partnerBanks} />
-            </div>
-            <div className="lg:col-span-2 space-y-6 md:space-y-8">
-                <PartnerStatus partnerBanks={partnerBanks} isAdmin={false} />
-                <TransactionHistory transactions={transactions} />
-            </div>
-        </div>
-    );
-  }
-  
-  return null;
+  return (
+      <div className="grid gap-6 md:gap-8 lg:grid-cols-5">
+          <div className="lg:col-span-3 space-y-6 md:space-y-8">
+              {account && <AccountBalance account={account} />}
+              <TransferForm partnerBanks={partnerBanks} />
+          </div>
+          <div className="lg:col-span-2 space-y-6 md:space-y-8">
+              <PartnerStatus partnerBanks={partnerBanks} />
+              <TransactionHistory transactions={transactions} />
+          </div>
+      </div>
+  );
 }
