@@ -1,6 +1,6 @@
 'use client';
-import { useState, useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
+import { useState } from 'react';
+import { useActionState, useFormStatus } from 'react-dom';
 import { simulateTransfer } from '@/app/actions';
 import {
   Card,
@@ -41,11 +41,11 @@ const initialState = {
   errors: {},
 };
 
-function SubmitButton({ showConfirmationDialog }: { showConfirmationDialog: () => void }) {
+function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button type="button" onClick={showConfirmationDialog} disabled={pending} className="w-full">
+    <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -69,39 +69,29 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
   const selectedBank = partnerBanks.find(b => b.id === selectedBankId);
   const requiresConfirmation = selectedBank && (selectedBank.status === 'SLOW' || selectedBank.status === 'DOWN');
 
-  const handleSubmitWithUser = (formData: FormData) => {
-    formData.append('userId', user.id);
-    formAction(formData);
-  };
-  
-  const handleDialogContinue = () => {
-      const form = document.getElementById('transfer-form') as HTMLFormElement;
-      if (form) {
-        const formData = new FormData(form);
-        handleSubmitWithUser(formData);
-      }
-      setShowDialog(false);
-  }
-
-  const showConfirmationDialog = () => {
-    // Manually trigger form validation before showing dialog
-    const form = document.getElementById('transfer-form') as HTMLFormElement;
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
     if (requiresConfirmation) {
       setShowDialog(true);
     } else {
-      const formData = new FormData(form);
-      handleSubmitWithUser(formData);
+      formAction(formData);
     }
+  };
+
+  const handleDialogContinue = () => {
+    const form = document.getElementById('transfer-form') as HTMLFormElement;
+    if (form) {
+      const formData = new FormData(form);
+      formAction(formData);
+    }
+    setShowDialog(false);
   };
   
   return (
     <>
-      <form id="transfer-form" action={handleSubmitWithUser}>
+      <form id="transfer-form" action={formAction} onSubmit={handleSubmit}>
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -162,6 +152,8 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
                 placeholder="E.g., For groceries"
               />
             </div>
+             {selectedBank && (requiresConfirmation || state.message) ? null : <div className="md:col-span-2 h-10"></div> }
+
              {requiresConfirmation && (
                 <div className="md:col-span-2">
                     <Alert variant={selectedBank?.status === 'DOWN' ? 'destructive' : 'default'}>
@@ -173,7 +165,7 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
                     </Alert>
                 </div>
              )}
-              {state.message && !state.errors && (
+              {state.message && !state.errors?.from_bank && !state.errors?.to_account && !state.errors?.amount && (
                 <div className="md:col-span-2">
                     <Alert variant="default" className="bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800">
                         <Info className="h-4 w-4 text-green-600" />
@@ -184,7 +176,7 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
                     </Alert>
                 </div>
             )}
-             {state.message && state.errors && (
+             {state.message && (state.errors?.from_bank || state.errors?.to_account || state.errors?.amount) && (
                 <div className="md:col-span-2">
                     <Alert variant="destructive">
                         <AlertTriangle className="h-4 w-4" />
@@ -197,7 +189,7 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
             )}
           </CardContent>
           <CardFooter>
-            <SubmitButton showConfirmationDialog={showConfirmationDialog} />
+             <SubmitButton />
           </CardFooter>
         </Card>
       </form>
