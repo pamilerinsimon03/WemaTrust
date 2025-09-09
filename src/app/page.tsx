@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAccount, getPartnerBanks, getTransactions, getUser } from '@/lib/store';
+import { getAccount, getPartnerBanks, getTransactionsForUser, getUser } from '@/lib/store';
 import { DashboardClient } from '@/components/dashboard-client';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Terminal } from 'lucide-react';
@@ -40,7 +40,7 @@ export default function Home() {
       }
 
       setPartnerBanks(getPartnerBanks());
-      setTransactions(getTransactions());
+      setTransactions(getTransactionsForUser(userId));
     } catch (e: any) {
       setError(e.message || 'An error occurred while loading data.');
       localStorage.removeItem('userId'); // Clear invalid user id

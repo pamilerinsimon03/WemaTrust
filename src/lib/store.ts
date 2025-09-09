@@ -5,6 +5,7 @@ import {
   ShadowEntry,
   ShadowEntryStatus,
   User,
+  PartnerBankStatus,
 } from './types';
 import sseEmitter from './events';
 
@@ -12,7 +13,7 @@ interface Store {
   users: Map<string, User>;
   accounts: Map<string, Account>;
   partnerBanks: Map<string, PartnerBank>;
-  transactions: Transaction[];
+  transactions: Map<string, Transaction[]>; // Keyed by userId
 }
 
 // In-memory store. This will reset on server restart.
@@ -88,13 +89,25 @@ const store: Store = {
       { id: 'bank_d', name: 'UBA', status: 'DOWN', historicalSuccessRate: 0.6 },
     ],
   ]),
-  transactions: [],
+  transactions: new Map(),
 };
 
 // --- Data Accessors ---
 
 export const getUsers = (): User[] => Array.from(store.users.values());
 export const getUser = (id: string): User | undefined => store.users.get(id);
+export const findUserByAccountId = (accountNumber: string): User | undefined => {
+    for (const user of store.users.values()) {
+        if (user.accountId) {
+            const account = store.accounts.get(user.accountId);
+            if (account?.accountNumber === accountNumber) {
+                return user;
+            }
+        }
+    }
+    return undefined;
+}
+
 
 export const getAccount = (id: string): Account | undefined => {
   const account = store.accounts.get(id);
@@ -106,10 +119,13 @@ export const getPartnerBanks = (): PartnerBank[] =>
   Array.from(store.partnerBanks.values());
 export const getPartnerBank = (id: string): PartnerBank | undefined =>
   store.partnerBanks.get(id);
-export const getTransactions = (): Transaction[] =>
-  [...store.transactions].sort(
+
+export const getTransactionsForUser = (userId: string): Transaction[] => {
+  const userTransactions = store.transactions.get(userId) || [];
+  return [...userTransactions].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
+};
 
 // --- Data Mutators ---
 
@@ -119,13 +135,11 @@ const emitEvent = (event: any) => {
 
 export const updatePartnerBankStatus = (
   id: string,
-  status: PartnerBank['status'],
-  successRate: number
+  status: PartnerBankStatus
 ): PartnerBank | null => {
   const bank = store.partnerBanks.get(id);
   if (bank) {
     bank.status = status;
-    bank.historicalSuccessRate = successRate;
     emitEvent({ type: 'partner_status_changed', data: bank });
     console.log(`[PARTNER STATUS] Bank ${bank.name} status updated to ${status}`);
     return bank;
@@ -134,40 +148,51 @@ export const updatePartnerBankStatus = (
 };
 
 export const createTransaction = (
-  tx: Omit<Transaction, 'id' | 'createdAt'>
+  tx: Omit<Transaction, 'id' | 'createdAt'> & { userId: string }
 ): Transaction => {
+  const { userId, ...restTx } = tx;
   const newTx: Transaction = {
-    ...tx,
+    ...restTx,
     id: `tx_${Date.now()}`,
     createdAt: new Date().toISOString(),
   };
-  store.transactions.push(newTx);
-  emitEvent({ type: 'new_transaction', data: newTx });
+
+  if (!store.transactions.has(userId)) {
+    store.transactions.set(userId, []);
+  }
+  store.transactions.get(userId)!.push(newTx);
+  emitEvent({ type: 'new_transaction', data: { ...newTx, userId } });
 
   if (newTx.type === 'debit' && newTx.status === 'success') {
-    const user = store.users.get('user1'); // Assuming user1 is the sender for now
+    const user = store.users.get(userId);
     if (user && user.accountId) {
         const account = store.accounts.get(user.accountId)!;
         account.balance -= newTx.amount;
-        emitEvent({ type: 'balance_updated', data: { accountId: account.id, balance: account.balance } });
+        emitEvent({ type: 'balance_updated', data: { accountId: account.id, balance: account.balance, userId } });
     }
   }
 
   return newTx;
 };
 
-export const processNipEvent = (event: {
+export const processNipEventForUser = (event: {
   txn_ref: string;
   amount: number;
   status: 'pending' | 'success' | 'failed';
   to_account: string;
+  from_bank?: string;
+  note?: string;
 }) => {
-  const targetAccount = Array.from(store.accounts.values()).find(
-    (acc) => acc.accountNumber === event.to_account
-  );
+  const recipientUser = findUserByAccountId(event.to_account);
 
-  if (!targetAccount) {
-    console.error(`[NIP Event] Account not found for number: ${event.to_account}`);
+  if (!recipientUser || !recipientUser.accountId) {
+    console.error(`[NIP Event] Recipient account not found for number: ${event.to_account}`);
+    return;
+  }
+  
+  const targetAccount = store.accounts.get(recipientUser.accountId);
+   if (!targetAccount) {
+    console.error(`[NIP Event] Account object not found for ID: ${recipientUser.accountId}`);
     return;
   }
 
@@ -187,11 +212,11 @@ export const processNipEvent = (event: {
       };
       targetAccount.shadowEntries.push(shadowEntry);
       console.log(
-        `[SMS STUB] To: User - NIP transfer of ${event.amount} is pending. Ref: ${event.txn_ref}`
+        `[SMS STUB] To: ${recipientUser.name} - Incoming transfer of ${event.amount} is pending. Ref: ${event.txn_ref}`
       );
       emitEvent({
         type: 'shadow_created',
-        data: { ...shadowEntry, accountId: targetAccount.id },
+        data: { ...shadowEntry, accountId: targetAccount.id, userId: recipientUser.id },
       });
     }
   } else if (shadowEntry) {
@@ -207,31 +232,34 @@ export const processNipEvent = (event: {
       );
 
       createTransaction({
+        userId: recipientUser.id,
         txn_ref: event.txn_ref,
         type: 'credit',
         amount: event.amount,
         status: 'success',
-        note: 'NIP Inward',
+        note: event.note || 'NIP Inward',
+        from_bank: event.from_bank,
       });
 
       console.log(
-        `[SMS STUB] To: User - Your account has been credited with ${event.amount}. Ref: ${event.txn_ref}`
+        `[SMS STUB] To: ${recipientUser.name} - Your account has been credited with ${event.amount}. Ref: ${event.txn_ref}`
       );
       emitEvent({
         type: 'balance_updated',
         data: {
           accountId: targetAccount.id,
           balance: targetAccount.balance,
+          userId: recipientUser.id,
         },
       });
     } else {
       console.log(
-        `[SMS STUB] To: User - NIP transfer of ${event.amount} failed. Ref: ${event.txn_ref}`
+        `[SMS STUB] To: ${recipientUser.name} - Incoming transfer of ${event.amount} failed. Ref: ${event.txn_ref}`
       );
     }
     emitEvent({
       type: 'shadow_updated',
-      data: { ...shadowEntry, accountId: targetAccount.id },
+      data: { ...shadowEntry, accountId: targetAccount.id, userId: recipientUser.id },
     });
   }
 };

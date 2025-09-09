@@ -46,14 +46,25 @@ export interface Transaction {
   createdAt: string;
 }
 
-interface ShadowEntryEvent extends ShadowEntry {
+interface UserEvent {
+  userId: string;
+}
+
+interface AccountEvent extends UserEvent {
   accountId: string;
 }
+
+interface ShadowEntryEvent extends ShadowEntry, AccountEvent {}
+interface TransactionEvent extends Transaction, UserEvent {}
+interface BalanceUpdateEvent extends AccountEvent {
+    balance: number;
+}
+
 
 // For SSE events
 export type ServerEvent =
   | { type: 'shadow_created'; data: ShadowEntryEvent }
   | { type: 'shadow_updated'; data: ShadowEntryEvent }
   | { type: 'partner_status_changed'; data: PartnerBank }
-  | { type: 'new_transaction'; data: Transaction }
-  | { type: 'balance_updated'; data: { accountId: string, balance: number } };
+  | { type: 'new_transaction'; data: TransactionEvent }
+  | { type: 'balance_updated'; data: BalanceUpdateEvent };

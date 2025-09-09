@@ -33,7 +33,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Send, Loader2, AlertTriangle, Info } from 'lucide-react';
-import type { PartnerBank } from '@/lib/types';
+import type { PartnerBank, User } from '@/lib/types';
 import { StatusBadge } from './status-badge';
 
 const initialState = {
@@ -61,7 +61,7 @@ function SubmitButton({ showConfirmationDialog }: { showConfirmationDialog: () =
   );
 }
 
-export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) {
+export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks: PartnerBank[] }) {
   const [state, formAction] = useActionState(simulateTransfer, initialState);
   const [selectedBankId, setSelectedBankId] = useState<string>('');
   const [showDialog, setShowDialog] = useState(false);
@@ -69,28 +69,39 @@ export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) 
   const selectedBank = partnerBanks.find(b => b.id === selectedBankId);
   const requiresConfirmation = selectedBank && (selectedBank.status === 'SLOW' || selectedBank.status === 'DOWN');
 
-  const handleSubmission = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  const handleSubmitWithUser = (formData: FormData) => {
+    formData.append('userId', user.id);
     formAction(formData);
   };
-
-  const showConfirmationDialog = () => {
-    if (requiresConfirmation) {
-      setShowDialog(true);
-    } else {
-      // Directly submit the form if no confirmation is needed
+  
+  const handleDialogContinue = () => {
       const form = document.getElementById('transfer-form') as HTMLFormElement;
       if (form) {
         const formData = new FormData(form);
-        formAction(formData);
+        handleSubmitWithUser(formData);
       }
+      setShowDialog(false);
+  }
+
+  const showConfirmationDialog = () => {
+    // Manually trigger form validation before showing dialog
+    const form = document.getElementById('transfer-form') as HTMLFormElement;
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    if (requiresConfirmation) {
+      setShowDialog(true);
+    } else {
+      const formData = new FormData(form);
+      handleSubmitWithUser(formData);
     }
   };
   
   return (
     <>
-      <form id="transfer-form" action={formAction} onSubmit={handleSubmission}>
+      <form id="transfer-form" action={handleSubmitWithUser}>
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -102,6 +113,7 @@ export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) 
             </CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="hidden" name="userId" value={user.id} />
             <div className="space-y-2">
               <Label htmlFor="amount">Amount (NGN)</Label>
               <Input
@@ -172,6 +184,17 @@ export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) 
                     </Alert>
                 </div>
             )}
+             {state.message && state.errors && (
+                <div className="md:col-span-2">
+                    <Alert variant="destructive">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertTitle>Transfer Failed</AlertTitle>
+                        <AlertDescription>
+                            {state.message}
+                        </AlertDescription>
+                    </Alert>
+                </div>
+            )}
           </CardContent>
           <CardFooter>
             <SubmitButton showConfirmationDialog={showConfirmationDialog} />
@@ -190,14 +213,7 @@ export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) 
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={() => {
-              const form = document.getElementById('transfer-form') as HTMLFormElement;
-              if (form) {
-                const formData = new FormData(form);
-                formAction(formData);
-              }
-              setShowDialog(false);
-            }}>
+            <AlertDialogAction onClick={handleDialogContinue}>
               Yes, Continue
             </AlertDialogAction>
           </AlertDialogFooter>
