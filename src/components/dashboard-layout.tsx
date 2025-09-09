@@ -11,9 +11,10 @@ import {
   SidebarTrigger,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { Banknote, LayoutDashboard, Github, LogOut } from 'lucide-react';
+import { Banknote, LayoutDashboard, Github, LogOut, PanelLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Button } from './ui/button';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -31,16 +32,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <div className="bg-primary p-2 rounded-lg">
               <Banknote className="text-primary-foreground" />
             </div>
-            <h1 className="text-xl font-semibold text-primary">WemaTrust</h1>
+            <h1 className="text-xl font-semibold text-primary group-data-[collapsible=icon]:hidden">WemaTrust</h1>
           </Link>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={true}>
+              <SidebarMenuButton asChild isActive={true} tooltip={{children: 'Dashboard'}}>
                 <Link href="/">
                   <LayoutDashboard />
-                  Dashboard
+                  <span>Dashboard</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -49,17 +50,17 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <SidebarFooter>
           <SidebarMenu>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild tooltip={{children: 'View on GitHub'}}>
                 <a href="https://github.com/firebase/studio" target="_blank" rel="noopener noreferrer">
                   <Github />
-                  View on GitHub
+                   <span>View on GitHub</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton onClick={handleLogout} variant="outline">
+              <SidebarMenuButton onClick={handleLogout} variant="outline" tooltip={{children: 'Logout'}}>
                 <LogOut />
-                Logout
+                <span>Logout</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -68,7 +69,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <SidebarInset>
         <header className="sticky top-0 z-10 p-4 flex items-center justify-between md:hidden border-b bg-background/80 backdrop-blur-sm">
           <div className='flex items-center gap-4'>
-            <SidebarTrigger />
+            <SidebarTrigger>
+                <PanelLeft className="h-5 w-5" />
+            </SidebarTrigger>
             <div className="flex items-center gap-2">
               <div className="bg-primary p-1.5 rounded-md">
                 <Banknote size={20} className="text-primary-foreground" />
@@ -86,9 +89,4 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </SidebarInset>
     </SidebarProvider>
   );
-}
-
-// Dummy button for the header logout icon
-function Button(props: any) {
-  return <button {...props} />;
 }

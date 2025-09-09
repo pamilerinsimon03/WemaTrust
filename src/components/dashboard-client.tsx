@@ -107,16 +107,26 @@ export function DashboardClient({
     };
   }, [toast, account]);
 
-  return (
-    <div className="grid gap-6 md:gap-8 lg:grid-cols-5">
-      <div className="lg:col-span-3 space-y-6 md:space-y-8">
-        {isUser && account && <AccountBalance account={account} />}
-        {isUser && <TransferForm partnerBanks={partnerBanks} />}
-      </div>
-      <div className="lg:col-span-2 space-y-6 md:space-y-8">
-        {(isAdmin || isUser) && <PartnerStatus partnerBanks={partnerBanks} isAdmin={isAdmin} />}
-        {isUser && <TransactionHistory transactions={transactions} />}
-      </div>
-    </div>
-  );
+  if (isAdmin) {
+    return (
+        <PartnerStatus partnerBanks={partnerBanks} isAdmin={true} />
+    );
+  }
+
+  if (isUser) {
+    return (
+        <div className="grid gap-6 md:gap-8 lg:grid-cols-5">
+            <div className="lg:col-span-3 space-y-6 md:space-y-8">
+                {account && <AccountBalance account={account} />}
+                <TransferForm partnerBanks={partnerBanks} />
+            </div>
+            <div className="lg:col-span-2 space-y-6 md:space-y-8">
+                <PartnerStatus partnerBanks={partnerBanks} isAdmin={false} />
+                <TransactionHistory transactions={transactions} />
+            </div>
+        </div>
+    );
+  }
+  
+  return null;
 }

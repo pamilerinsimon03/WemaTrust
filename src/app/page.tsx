@@ -6,6 +6,7 @@ import { DashboardClient } from '@/components/dashboard-client';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Terminal } from 'lucide-react';
 import type { Account, PartnerBank, Transaction, User } from '@/lib/types';
+import { DashboardLayout } from '@/components/dashboard-layout';
 
 export default function Home() {
   const router = useRouter();
@@ -50,24 +51,28 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="h-6 w-6 animate-spin" />
-            <p className="text-lg">Loading Dashboard...</p>
+      <DashboardLayout>
+        <div className="flex items-center justify-center h-full">
+          <div className="flex items-center gap-2 text-muted-foreground">
+              <Loader2 className="h-6 w-6 animate-spin" />
+              <p className="text-lg">Loading Dashboard...</p>
+          </div>
         </div>
-      </div>
+      </DashboardLayout>
     );
   }
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Alert variant="destructive" className="max-w-md">
-          <Terminal className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      </div>
+      <DashboardLayout>
+        <div className="flex items-center justify-center h-full">
+          <Alert variant="destructive" className="max-w-md">
+            <Terminal className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        </div>
+      </DashboardLayout>
     );
   }
 
@@ -78,11 +83,13 @@ export default function Home() {
   }
   
   return (
-    <DashboardClient
-      user={user}
-      initialAccount={account}
-      initialPartnerBanks={partnerBanks}
-      initialTransactions={transactions}
-    />
+    <DashboardLayout>
+      <DashboardClient
+        user={user}
+        initialAccount={account}
+        initialPartnerBanks={partnerBanks}
+        initialTransactions={transactions}
+      />
+    </DashboardLayout>
   );
 }
