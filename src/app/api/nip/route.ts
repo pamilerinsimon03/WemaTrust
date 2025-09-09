@@ -6,9 +6,9 @@ const nipSchema = z.object({
   txn_ref: z.string(),
   amount: z.number().positive(),
   status: z.enum(['pending', 'success', 'failed']),
+  to_account: z.string(),
   // These fields are included in the prompt but not used in the logic.
   // Adding them to the schema for completeness.
-  to_account: z.string().optional(),
   from_bank: z.string().optional(),
   note: z.string().optional(),
 });

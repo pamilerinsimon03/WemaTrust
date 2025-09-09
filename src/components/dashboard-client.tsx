@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Account, PartnerBank, ServerEvent, Transaction } from '@/lib/types';
+import type { Account, PartnerBank, ServerEvent, Transaction, User } from '@/lib/types';
 import { AccountBalance } from './account-balance';
 import { TransferForm } from './transfer-form';
 import { PartnerStatus } from './partner-status';
@@ -9,35 +9,45 @@ import { TransactionHistory } from './transaction-history';
 import { useToast } from '@/hooks/use-toast';
 
 interface DashboardClientProps {
-  initialAccount: Account;
+  user: User;
+  initialAccount: Account | null;
   initialPartnerBanks: PartnerBank[];
   initialTransactions: Transaction[];
 }
 
 export function DashboardClient({
+  user,
   initialAccount,
   initialPartnerBanks,
   initialTransactions,
 }: DashboardClientProps) {
-  const [account, setAccount] = useState<Account>(initialAccount);
+  const [account, setAccount] = useState<Account | null>(initialAccount);
   const [partnerBanks, setPartnerBanks] = useState<PartnerBank[]>(initialPartnerBanks);
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
   const { toast } = useToast();
+
+  const isUser = user.roles.includes('user');
+  const isAdmin = user.roles.includes('admin');
 
   useEffect(() => {
     const eventSource = new EventSource('/api/events');
     eventSource.onmessage = (event) => {
       const serverEvent = JSON.parse(event.data) as ServerEvent;
+      
+      // Ensure events are for the current user's account if applicable
+      if ('accountId' in serverEvent.data && account && serverEvent.data.accountId !== account.id) {
+          return;
+      }
 
       switch (serverEvent.type) {
         case 'balance_updated':
-          setAccount((prev) => ({ ...prev, balance: serverEvent.data.balance }));
+          setAccount((prev) => prev ? { ...prev, balance: serverEvent.data.balance } : null);
           break;
         case 'shadow_created':
-          setAccount((prev) => ({
+          setAccount((prev) => prev ? {
             ...prev,
             shadowEntries: [serverEvent.data, ...prev.shadowEntries],
-          }));
+          } : null);
           toast({
             title: 'Pending Transaction',
             description: `Incoming transfer of ${serverEvent.data.amount.toLocaleString()} is pending.`,
@@ -45,6 +55,7 @@ export function DashboardClient({
           break;
         case 'shadow_updated':
           setAccount((prev) => {
+            if (!prev) return null;
             const isCleared = serverEvent.data.status === 'cleared';
             const shadowEntries = isCleared
               ? prev.shadowEntries.filter((e) => e.id !== serverEvent.data.id)
@@ -94,17 +105,17 @@ export function DashboardClient({
     return () => {
       eventSource.close();
     };
-  }, [toast]);
+  }, [toast, account]);
 
   return (
     <div className="grid gap-6 md:gap-8 lg:grid-cols-5">
       <div className="lg:col-span-3 space-y-6 md:space-y-8">
-        <AccountBalance account={account} />
-        <TransferForm partnerBanks={partnerBanks} />
+        {isUser && account && <AccountBalance account={account} />}
+        {isUser && <TransferForm partnerBanks={partnerBanks} />}
       </div>
       <div className="lg:col-span-2 space-y-6 md:space-y-8">
-        <PartnerStatus partnerBanks={partnerBanks} />
-        <TransactionHistory transactions={transactions} />
+        {(isAdmin || isUser) && <PartnerStatus partnerBanks={partnerBanks} isAdmin={isAdmin} />}
+        {isUser && <TransactionHistory transactions={transactions} />}
       </div>
     </div>
   );

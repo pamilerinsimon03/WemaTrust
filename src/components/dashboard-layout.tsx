@@ -11,10 +11,18 @@ import {
   SidebarTrigger,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { Banknote, LayoutDashboard, Github } from 'lucide-react';
+import { Banknote, LayoutDashboard, Github, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  
+  const handleLogout = () => {
+    localStorage.removeItem('userId');
+    router.push('/login');
+  };
+
   return (
     <SidebarProvider>
       <Sidebar>
@@ -48,18 +56,29 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton onClick={handleLogout} variant="outline">
+                <LogOut />
+                Logout
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header className="sticky top-0 z-10 p-4 flex items-center gap-4 md:hidden border-b bg-background/80 backdrop-blur-sm">
-          <SidebarTrigger />
-          <div className="flex items-center gap-2">
-             <div className="bg-primary p-1.5 rounded-md">
-              <Banknote size={20} className="text-primary-foreground" />
+        <header className="sticky top-0 z-10 p-4 flex items-center justify-between md:hidden border-b bg-background/80 backdrop-blur-sm">
+          <div className='flex items-center gap-4'>
+            <SidebarTrigger />
+            <div className="flex items-center gap-2">
+              <div className="bg-primary p-1.5 rounded-md">
+                <Banknote size={20} className="text-primary-foreground" />
+              </div>
+              <h2 className="text-lg font-semibold text-primary">WemaTrust</h2>
             </div>
-            <h2 className="text-lg font-semibold text-primary">WemaTrust</h2>
           </div>
+          <Button variant="ghost" size="icon" onClick={handleLogout}>
+            <LogOut className="h-5 w-5" />
+          </Button>
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
           {children}
@@ -67,4 +86,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+// Dummy button for the header logout icon
+function Button(props: any) {
+  return <button {...props} />;
 }

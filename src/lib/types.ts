@@ -1,3 +1,11 @@
+export interface User {
+  id: string;
+  name: string;
+  roles: ('admin' | 'user')[];
+  accountId?: string;
+  avatarUrl?: string;
+}
+
 export interface Account {
   id: string;
   name: string;
@@ -38,10 +46,14 @@ export interface Transaction {
   createdAt: string;
 }
 
+interface ShadowEntryEvent extends ShadowEntry {
+  accountId: string;
+}
+
 // For SSE events
 export type ServerEvent =
-  | { type: 'shadow_created'; data: ShadowEntry }
-  | { type: 'shadow_updated'; data: ShadowEntry }
+  | { type: 'shadow_created'; data: ShadowEntryEvent }
+  | { type: 'shadow_updated'; data: ShadowEntryEvent }
   | { type: 'partner_status_changed'; data: PartnerBank }
   | { type: 'new_transaction'; data: Transaction }
-  | { type: 'balance_updated'; data: { balance: number } };
+  | { type: 'balance_updated'; data: { accountId: string, balance: number } };

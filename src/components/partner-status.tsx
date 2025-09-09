@@ -21,7 +21,6 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Cpu, Satellite, Loader2, Wand2 } from 'lucide-react';
 import type { PartnerBank } from '@/lib/types';
@@ -47,7 +46,7 @@ function SubmitButton() {
     )
 }
 
-export function PartnerStatus({ partnerBanks }: { partnerBanks: PartnerBank[] }) {
+export function PartnerStatus({ partnerBanks, isAdmin }: { partnerBanks: PartnerBank[], isAdmin: boolean }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -76,7 +75,10 @@ export function PartnerStatus({ partnerBanks }: { partnerBanks: PartnerBank[] })
           <span>Partner Bank Network</span>
         </CardTitle>
         <CardDescription>
-          Monitor and simulate changes to partner bank statuses.
+          {isAdmin 
+            ? "Monitor and simulate changes to partner bank statuses."
+            : "Live status of our partner banks."
+          }
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -88,49 +90,54 @@ export function PartnerStatus({ partnerBanks }: { partnerBanks: PartnerBank[] })
             </div>
           ))}
         </div>
-        <Separator />
-        <div className="space-y-2">
-            <h3 className="font-semibold flex items-center gap-2 text-muted-foreground"><Cpu size={16}/> AI Status Adjustment Tool</h3>
-        </div>
-        <form ref={formRef} action={handleAction} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="bankId">Bank to Adjust</Label>
-            <Select name="bankId" required>
-              <SelectTrigger id="bankId">
-                <SelectValue placeholder="Select a bank" />
-              </SelectTrigger>
-              <SelectContent>
-                {partnerBanks.map(bank => (
-                  <SelectItem key={bank.id} value={bank.id}>
-                    {bank.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="networkConditions">Simulated Network Conditions</Label>
-            <Textarea
-              id="networkConditions"
-              name="networkConditions"
-              placeholder="e.g., 'High latency detected', 'All systems nominal'"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="historicalSuccessRate">Historical Success Rate</Label>
-            <Slider
-              id="historicalSuccessRate"
-              name="historicalSuccessRate"
-              defaultValue={[0.9]}
-              max={1}
-              step={0.01}
-            />
-          </div>
-          <CardFooter className="p-0 pt-2">
-             <SubmitButton />
-          </CardFooter>
-        </form>
+
+        {isAdmin && (
+          <>
+            <Separator />
+            <div className="space-y-2">
+                <h3 className="font-semibold flex items-center gap-2 text-muted-foreground"><Cpu size={16}/> AI Status Adjustment Tool</h3>
+            </div>
+            <form ref={formRef} action={handleAction} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="bankId">Bank to Adjust</Label>
+                <Select name="bankId" required>
+                  <SelectTrigger id="bankId">
+                    <SelectValue placeholder="Select a bank" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {partnerBanks.map(bank => (
+                      <SelectItem key={bank.id} value={bank.id}>
+                        {bank.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="networkConditions">Simulated Network Conditions</Label>
+                <Textarea
+                  id="networkConditions"
+                  name="networkConditions"
+                  placeholder="e.g., 'High latency detected', 'All systems nominal'"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="historicalSuccessRate">Historical Success Rate</Label>
+                <Slider
+                  id="historicalSuccessRate"
+                  name="historicalSuccessRate"
+                  defaultValue={[0.9]}
+                  max={1}
+                  step={0.01}
+                />
+              </div>
+              <CardFooter className="p-0 pt-2">
+                <SubmitButton />
+              </CardFooter>
+            </form>
+          </>
+        )}
       </CardContent>
     </Card>
   );
