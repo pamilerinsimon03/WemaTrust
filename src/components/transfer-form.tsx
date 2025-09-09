@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useState, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { simulateTransfer } from '@/app/actions';
 import {
   Card,
@@ -62,7 +62,7 @@ function SubmitButton({ showConfirmationDialog }: { showConfirmationDialog: () =
 }
 
 export function TransferForm({ partnerBanks }: { partnerBanks: PartnerBank[] }) {
-  const [state, formAction] = useFormState(simulateTransfer, initialState);
+  const [state, formAction] = useActionState(simulateTransfer, initialState);
   const [selectedBankId, setSelectedBankId] = useState<string>('');
   const [showDialog, setShowDialog] = useState(false);
   
