@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { useActionState, useFormStatus } from 'react-dom';
+import { useState, useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { simulateTransfer } from '@/app/actions';
 import {
   Card,
@@ -71,20 +71,21 @@ export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks:
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
 
     if (requiresConfirmation) {
       setShowDialog(true);
     } else {
-      formAction(formData);
+      const form = document.getElementById('transfer-form') as HTMLFormElement;
+      if (form) {
+          form.requestSubmit();
+      }
     }
   };
 
   const handleDialogContinue = () => {
     const form = document.getElementById('transfer-form') as HTMLFormElement;
     if (form) {
-      const formData = new FormData(form);
-      formAction(formData);
+      form.requestSubmit();
     }
     setShowDialog(false);
   };
