@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: wematrust-banking
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_BASE_URL
+        value: https://wematrust-banking.onrender.com
+    healthCheckPath: /
+    autoDeploy: true
+    branch: main

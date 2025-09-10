@@ -30,12 +30,26 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Local env files
+.env*.local
+.env
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Database files (development only)
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
 
 .genkit/*
 .env*

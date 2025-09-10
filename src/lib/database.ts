@@ -7,9 +7,14 @@ const isServer = typeof window === 'undefined';
 let serverDbOperations: any = null;
 if (isServer) {
   try {
-    // Use require directly since we're on server side
-    const serverDb = require('./server-database');
-    serverDbOperations = serverDb.dbOperations;
+    // Use production database in production, server database in development
+    if (process.env.NODE_ENV === 'production') {
+      const productionDb = require('./production-database');
+      serverDbOperations = productionDb.productionDb;
+    } else {
+      const serverDb = require('./server-database');
+      serverDbOperations = serverDb.dbOperations;
+    }
   } catch (error) {
     console.warn('Failed to load server database:', error);
     console.error('Error details:', error);
