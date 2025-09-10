@@ -24,6 +24,8 @@ class ProductionDatabase {
 
   private isProduction: boolean;
 
+  private initialized: boolean = false;
+
   constructor() {
     this.data = {
       users: new Map(),
@@ -37,8 +39,13 @@ class ProductionDatabase {
     };
     
     this.isProduction = process.env.NODE_ENV === 'production';
-    
-    this.initializeSampleData();
+  }
+
+  private ensureInitialized() {
+    if (!this.initialized) {
+      this.initializeSampleData();
+      this.initialized = true;
+    }
   }
 
   private generateId(prefix: string): string {
@@ -247,14 +254,17 @@ class ProductionDatabase {
 
   // User operations
   getUser(id: string): User | null {
+    this.ensureInitialized();
     return this.data.users.get(id) || null;
   }
 
   getAllUsers(): User[] {
+    this.ensureInitialized();
     return Array.from(this.data.users.values());
   }
 
   findUserByAccountNumber(accountNumber: string): User | null {
+    this.ensureInitialized();
     for (const user of this.data.users.values()) {
       if (user.accountId) {
         const account = this.data.accounts.get(user.accountId);
@@ -268,10 +278,12 @@ class ProductionDatabase {
 
   // Account operations
   getAccount(id: string): Account | null {
+    this.ensureInitialized();
     return this.data.accounts.get(id) || null;
   }
 
   getAllAccounts(): Account[] {
+    this.ensureInitialized();
     return Array.from(this.data.accounts.values());
   }
 
@@ -321,6 +333,7 @@ class ProductionDatabase {
   }
 
   createTransaction(transaction: Omit<Transaction, 'id' | 'createdAt'>): Transaction {
+    this.ensureInitialized();
     const newTransaction: Transaction = {
       ...transaction,
       id: this.generateId('tx'),
