@@ -62,6 +62,54 @@ interface BalanceUpdateEvent extends AccountEvent {
 }
 
 
+export interface PrefundedAccount {
+  id: string;
+  bankId: string;
+  bankName: string;
+  accountNumber: string;
+  balance: number;
+  status: 'ACTIVE' | 'LOW' | 'DEPLETED';
+  lastReplenished: string;
+  createdAt: string;
+}
+
+export interface TransferLog {
+  id: string;
+  transactionId: string;
+  senderUserId: string;
+  senderName: string;
+  senderAccount: string;
+  recipientUserId: string;
+  recipientName: string;
+  recipientAccount: string;
+  recipientBank: string;
+  amount: number;
+  transferType: 'WEMA_TO_WEMA' | 'WEMA_TO_OTHER' | 'OTHER_TO_WEMA';
+  instantStatus: 'CREDITED' | 'PENDING' | 'FAILED';
+  backendStatus: 'PENDING' | 'SETTLED' | 'FAILED' | 'REVERSED';
+  prefundedAccountUsed?: string;
+  prefundedAccountBalance?: number;
+  settlementReference?: string;
+  createdAt: string;
+  settledAt?: string;
+  notes?: string;
+}
+
+export interface AdminLogsData {
+  totalTransfers: number;
+  instantCredits: number;
+  pendingSettlements: number;
+  failedSettlements: number;
+  prefundedAccounts: PrefundedAccount[];
+  recentTransfers: TransferLog[];
+  systemHealth: {
+    wemaToWemaSuccessRate: number;
+    wemaToOtherSuccessRate: number;
+    averageSettlementTime: number;
+    prefundedAccountHealth: 'HEALTHY' | 'WARNING' | 'CRITICAL';
+  };
+}
+
 // For SSE events
 export type ServerEvent =
   | { type: 'shadow_created'; data: ShadowEntryEvent }

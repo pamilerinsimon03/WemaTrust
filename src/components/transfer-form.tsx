@@ -1,7 +1,5 @@
 'use client';
-import { useState, useActionState, useEffect } from 'react';
-import { useFormStatus } from 'react-dom';
-import { simulateTransfer } from '@/app/actions';
+import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import {
   Card,
@@ -43,12 +41,10 @@ const initialState = {
   success: false,
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
+function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? (
+    <Button type="submit" disabled={isSubmitting} className="w-full">
+      {isSubmitting ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           Sending...
@@ -64,10 +60,11 @@ function SubmitButton() {
 }
 
 export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: User, partnerBanks: PartnerBank[], onTransferSuccess?: () => void }) {
-  const [state, formAction] = useActionState(simulateTransfer, initialState);
+  const [state, setState] = useState(initialState);
   const [selectedBankId, setSelectedBankId] = useState<string>('');
   const [showDialog, setShowDialog] = useState(false);
   const [lastSuccessMessage, setLastSuccessMessage] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   
   const selectedBank = partnerBanks.find(b => b.id === selectedBankId);
@@ -75,10 +72,13 @@ export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: 
 
   // Show toast notification when transfer is successful
   useEffect(() => {
+    console.log('[TRANSFER FORM] State changed:', { message: state.message, success: state.success, errors: state.errors });
+    
     if (state.message && !state.errors?.from_bank && !state.errors?.to_account && !state.errors?.amount) {
       if (state.success) {
         // Only show toast if this is a new success message
         if (state.message !== lastSuccessMessage) {
+          console.log('[TRANSFER FORM] Showing success toast for:', state.message);
           toast({
             title: 'Transfer Successful!',
             description: state.message,
@@ -87,14 +87,19 @@ export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: 
           setLastSuccessMessage(state.message);
           
           // Call the refresh callback to update the UI (only once per success)
+          // Add a small delay to ensure the database is updated
           if (onTransferSuccess) {
-            console.log('[TRANSFER FORM] Calling onTransferSuccess callback');
-            onTransferSuccess();
+            console.log('[TRANSFER FORM] Calling onTransferSuccess callback in 500ms...');
+            setTimeout(() => {
+              console.log('[TRANSFER FORM] Calling onTransferSuccess callback now');
+              onTransferSuccess();
+            }, 500); // 500ms delay to ensure database is updated
           } else {
-            console.log('[TRANSFER FORM] onTransferSuccess callback not provided');
+            console.log('[TRANSFER FORM] onTransferSuccess callback is not available');
           }
         }
       } else {
+        console.log('[TRANSFER FORM] Showing error toast for:', state.message);
         toast({
           title: 'Transfer Failed',
           description: state.message,
@@ -104,27 +109,88 @@ export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: 
     }
   }, [state.message, state.success, state.errors, toast, onTransferSuccess, lastSuccessMessage]);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
     if (requiresConfirmation) {
-      event.preventDefault();
       setShowDialog(true);
+      return;
     }
-    // If no confirmation required, let the form submit normally
+    
+    // Handle form submission directly
+    await submitTransfer();
+  };
+
+  const submitTransfer = async () => {
+    setIsSubmitting(true);
+    setState(initialState); // Reset state
+    
+    try {
+      const form = document.getElementById('transfer-form') as HTMLFormElement;
+      if (!form) return;
+      
+      const formData = new FormData(form);
+      const transferData = {
+        fromUserId: formData.get('userId') as string,
+        toAccountNumber: formData.get('to_account') as string,
+        amount: Number(formData.get('amount')),
+        note: formData.get('note') as string,
+      };
+      
+      console.log('[TRANSFER FORM] Submitting transfer:', transferData);
+      
+      const response = await fetch('/api/transfer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transferData),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        console.log('[TRANSFER FORM] Transfer successful:', result);
+        setState({
+          message: result.message,
+          errors: {},
+          success: true,
+        });
+        
+        // Call the refresh callback immediately
+        if (onTransferSuccess) {
+          console.log('[TRANSFER FORM] Calling onTransferSuccess callback immediately');
+          onTransferSuccess();
+        }
+      } else {
+        console.log('[TRANSFER FORM] Transfer failed:', result);
+        setState({
+          message: result.error || 'Transfer failed',
+          errors: {},
+          success: false,
+        });
+      }
+    } catch (error) {
+      console.error('[TRANSFER FORM] Transfer error:', error);
+      setState({
+        message: 'An unexpected error occurred',
+        errors: {},
+        success: false,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleDialogContinue = () => {
     setShowDialog(false);
-    // Submit the form after confirmation
-    const form = document.getElementById('transfer-form') as HTMLFormElement;
-    if (form) {
-      const formData = new FormData(form);
-      formAction(formData);
-    }
+    // Submit the transfer after confirmation
+    submitTransfer();
   };
   
   return (
     <>
-      <form id="transfer-form" action={formAction} onSubmit={handleSubmit}>
+      <form id="transfer-form" onSubmit={handleSubmit}>
         <Card className="shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -222,7 +288,7 @@ export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: 
             )}
           </CardContent>
           <CardFooter>
-             <SubmitButton />
+             <SubmitButton isSubmitting={isSubmitting} />
           </CardFooter>
         </Card>
       </form>

@@ -1,6 +1,6 @@
-import type { User, Account, PartnerBank, Transaction, ShadowEntry, PartnerBankStatus, ShadowEntryStatus } from './types';
+import type { User, Account, PartnerBank, Transaction, ShadowEntry, PartnerBankStatus, ShadowEntryStatus, PrefundedAccount, TransferLog } from './types';
 
-// Server-only database using file system (or in-memory on Vercel)
+// Server-only database using file system
 class ServerDatabase {
   private data: {
     users: Map<string, User>;
@@ -18,10 +18,11 @@ class ServerDatabase {
       userId?: string;
       createdAt: string;
     }>;
+    prefundedAccounts: Map<string, PrefundedAccount>;
+    transferLogs: Map<string, TransferLog>;
   };
 
   private filePath: string;
-  private isVercel: boolean;
 
   constructor() {
     this.data = {
@@ -31,21 +32,13 @@ class ServerDatabase {
       transactions: new Map(),
       shadowEntries: new Map(),
       auditLogs: [],
+      prefundedAccounts: new Map(),
+      transferLogs: new Map(),
     };
     
-    // Check if we're on Vercel (serverless) or Render (persistent)
-    this.isVercel = process.env.VERCEL === '1';
-    
-    if (this.isVercel) {
-      // On Vercel, use in-memory only (no file persistence)
-      console.log('[DATABASE] Running in Vercel mode - in-memory only');
-      this.initializeSampleData();
-    } else {
-      // On Render or local development - use file persistence
-      this.filePath = './data/wematrust_db.json';
-      this.loadFromFile();
-      this.initializeSampleData();
-    }
+    this.filePath = './data/wematrust_db.json';
+    this.loadFromFile();
+    this.initializeSampleData();
   }
 
   private generateId(prefix: string): string {
@@ -64,19 +57,10 @@ class ServerDatabase {
       createdAt: new Date().toISOString(),
     };
     this.data.auditLogs.push(log);
-    
-    // Only save to file in local development
-    if (!this.isVercel) {
-      this.saveToFile();
-    }
+    this.saveToFile();
   }
 
   private saveToFile() {
-    // Skip file operations on Vercel
-    if (this.isVercel) {
-      return;
-    }
-    
     try {
       const fs = require('fs');
       const path = require('path');
@@ -98,11 +82,6 @@ class ServerDatabase {
   }
 
   private loadFromFile() {
-    // Skip file operations on Vercel
-    if (this.isVercel) {
-      return;
-    }
-    
     try {
       const fs = require('fs');
       const path = require('path');
@@ -184,6 +163,54 @@ class ServerDatabase {
 
     partnerBanks.forEach(bank => {
       this.data.partnerBanks.set(bank.id, bank);
+    });
+
+    // Create prefunded accounts for major banks
+    const prefundedAccounts: PrefundedAccount[] = [
+      {
+        id: 'pfa_zenith',
+        bankId: 'bank_a',
+        bankName: 'Zenith Bank',
+        accountNumber: '2087654321',
+        balance: 50000000, // 50M NGN liquidity pool
+        status: 'ACTIVE',
+        lastReplenished: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: 'pfa_gtbank',
+        bankId: 'bank_b',
+        bankName: 'GTBank',
+        accountNumber: '0127654321',
+        balance: 75000000, // 75M NGN liquidity pool
+        status: 'ACTIVE',
+        lastReplenished: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: 'pfa_access',
+        bankId: 'bank_c',
+        bankName: 'Access Bank',
+        accountNumber: '0447654321',
+        balance: 25000000, // 25M NGN liquidity pool
+        status: 'LOW', // Lower due to SLOW bank status
+        lastReplenished: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: 'pfa_uba',
+        bankId: 'bank_d',
+        bankName: 'UBA',
+        accountNumber: '2227654321',
+        balance: 5000000, // 5M NGN minimal pool due to DOWN status
+        status: 'DEPLETED',
+        lastReplenished: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+    ];
+
+    prefundedAccounts.forEach(account => {
+      this.data.prefundedAccounts.set(account.id, account);
     });
 
     console.log('Sample data initialized successfully');
@@ -377,6 +404,81 @@ class ServerDatabase {
     return null;
   }
 
+  // Prefunded Account methods
+  getAllPrefundedAccounts(): PrefundedAccount[] {
+    return Array.from(this.data.prefundedAccounts.values());
+  }
+
+  getPrefundedAccount(id: string): PrefundedAccount | null {
+    return this.data.prefundedAccounts.get(id) || null;
+  }
+
+  createPrefundedAccount(account: Omit<PrefundedAccount, 'id' | 'createdAt'>): PrefundedAccount {
+    const id = `pfa_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const newAccount: PrefundedAccount = {
+      ...account,
+      id,
+      createdAt: new Date().toISOString(),
+    };
+    this.data.prefundedAccounts.set(id, newAccount);
+    this.saveToFile();
+    return newAccount;
+  }
+
+  updatePrefundedAccountBalance(id: string, balance: number): boolean {
+    const account = this.data.prefundedAccounts.get(id);
+    if (account) {
+      const updatedAccount = { ...account, balance };
+      this.data.prefundedAccounts.set(id, updatedAccount);
+      this.saveToFile();
+      return true;
+    }
+    return false;
+  }
+
+  // Transfer Log methods
+  getAllTransferLogs(): TransferLog[] {
+    return Array.from(this.data.transferLogs.values()).sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  getTransferLog(id: string): TransferLog | null {
+    return this.data.transferLogs.get(id) || null;
+  }
+
+  createTransferLog(log: Omit<TransferLog, 'id' | 'createdAt'>): TransferLog {
+    const id = `tl_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const newLog: TransferLog = {
+      ...log,
+      id,
+      createdAt: new Date().toISOString(),
+    };
+    this.data.transferLogs.set(id, newLog);
+    this.saveToFile();
+    return newLog;
+  }
+
+  updateTransferLogBackendStatus(
+    id: string, 
+    status: 'PENDING' | 'SETTLED' | 'FAILED' | 'REVERSED', 
+    settlementReference?: string
+  ): boolean {
+    const log = this.data.transferLogs.get(id);
+    if (log) {
+      const updatedLog = { 
+        ...log, 
+        backendStatus: status,
+        settledAt: status === 'SETTLED' ? new Date().toISOString() : log.settledAt,
+        settlementReference: settlementReference || log.settlementReference
+      };
+      this.data.transferLogs.set(id, updatedLog);
+      this.saveToFile();
+      return true;
+    }
+    return false;
+  }
+
   // Utility methods
   clearAllData() {
     this.data.users.clear();
@@ -384,6 +486,8 @@ class ServerDatabase {
     this.data.partnerBanks.clear();
     this.data.transactions.clear();
     this.data.shadowEntries.clear();
+    this.data.prefundedAccounts.clear();
+    this.data.transferLogs.clear();
     this.data.auditLogs = [];
     
     try {
@@ -407,6 +511,8 @@ class ServerDatabase {
       partnerBanks: Array.from(this.data.partnerBanks.entries()),
       transactions: Array.from(this.data.transactions.entries()),
       shadowEntries: Array.from(this.data.shadowEntries.entries()),
+      prefundedAccounts: Array.from(this.data.prefundedAccounts.entries()),
+      transferLogs: Array.from(this.data.transferLogs.entries()),
       auditLogs: this.data.auditLogs,
     };
   }
@@ -453,6 +559,18 @@ export const dbOperations = {
   updateShadowEntryStatus: (id: string, status: ShadowEntryStatus) => getServerDb().updateShadowEntryStatus(id, status),
   deleteShadowEntry: (id: string) => getServerDb().deleteShadowEntry(id),
   getShadowEntryByRef: (txnRef: string) => getServerDb().getShadowEntryByRef(txnRef),
+
+  // Prefunded Account operations
+  getAllPrefundedAccounts: () => getServerDb().getAllPrefundedAccounts(),
+  getPrefundedAccount: (id: string) => getServerDb().getPrefundedAccount(id),
+  createPrefundedAccount: (account: Omit<PrefundedAccount, 'id' | 'createdAt'>) => getServerDb().createPrefundedAccount(account),
+  updatePrefundedAccountBalance: (id: string, balance: number) => getServerDb().updatePrefundedAccountBalance(id, balance),
+
+  // Transfer Log operations
+  getAllTransferLogs: () => getServerDb().getAllTransferLogs(),
+  getTransferLog: (id: string) => getServerDb().getTransferLog(id),
+  createTransferLog: (log: Omit<TransferLog, 'id' | 'createdAt'>) => getServerDb().createTransferLog(log),
+  updateTransferLogBackendStatus: (id: string, status: 'PENDING' | 'SETTLED' | 'FAILED' | 'REVERSED', settlementReference?: string) => getServerDb().updateTransferLogBackendStatus(id, status, settlementReference),
 
   // Utility operations
   clearAllData: () => getServerDb().clearAllData(),

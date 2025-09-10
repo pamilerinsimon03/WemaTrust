@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { dbOperations } from '@/lib/server-database';
+import { dbOperations } from '@/lib/database';
 import { createTransaction } from '@/lib/store';
 
 const transactionQuerySchema = z.object({
