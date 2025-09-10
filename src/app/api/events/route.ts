@@ -19,7 +19,19 @@ export async function GET(request: NextRequest) {
 
   sseEmitter.on('event', sendEvent);
 
+  // Set up timeout to prevent Vercel timeout (25 seconds to be safe)
+  const timeout = setTimeout(() => {
+    sseEmitter.removeListener('event', sendEvent);
+    try {
+      writer.write(encoder.encode(`data: ${JSON.stringify({ type: 'timeout', data: { message: 'Connection timeout' } })}\n\n`));
+      writer.close();
+    } catch (e) {
+      console.error('SSE timeout close error:', e);
+    }
+  }, 25000); // 25 seconds
+
   request.signal.addEventListener('abort', () => {
+    clearTimeout(timeout);
     sseEmitter.removeListener('event', sendEvent);
     try {
       writer.close();

@@ -88,7 +88,10 @@ export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: 
           
           // Call the refresh callback to update the UI (only once per success)
           if (onTransferSuccess) {
+            console.log('[TRANSFER FORM] Calling onTransferSuccess callback');
             onTransferSuccess();
+          } else {
+            console.log('[TRANSFER FORM] onTransferSuccess callback not provided');
           }
         }
       } else {

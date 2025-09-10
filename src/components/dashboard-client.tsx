@@ -113,35 +113,65 @@ export function DashboardClient({
   const { toast } = useToast();
   const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Function to refresh account data with debouncing
+  // Function to refresh account data
   const refreshAccountData = useCallback(async () => {
-    // Clear any existing timeout
-    if (refreshTimeoutRef.current) {
-      clearTimeout(refreshTimeoutRef.current);
-    }
-
-    // Set a new timeout to debounce the refresh
-    refreshTimeoutRef.current = setTimeout(async () => {
-      try {
-        const accountResponse = await fetch(`/api/accounts?userId=${user.id}`);
-        if (accountResponse.ok) {
-          const accountData = await accountResponse.json();
-          setAccount(accountData);
-        }
-
-        const transactionsResponse = await fetch(`/api/transactions?userId=${user.id}`);
-        if (transactionsResponse.ok) {
-          const transactionsData = await transactionsResponse.json();
-          const userTransactions = Array.isArray(transactionsData) 
-            ? transactionsData 
-            : transactionsData.transactions || [];
-          setTransactions(userTransactions);
-        }
-      } catch (error) {
-        console.error('Error refreshing account data:', error);
+    console.log('[REFRESH] Starting account data refresh for user:', user.id);
+    
+    try {
+      // Clear any existing timeout
+      if (refreshTimeoutRef.current) {
+        clearTimeout(refreshTimeoutRef.current);
       }
-    }, 200); // 200ms debounce
+
+      // Immediate refresh without debouncing for now
+      const accountResponse = await fetch(`/api/accounts?userId=${user.id}`);
+      console.log('[REFRESH] Account response status:', accountResponse.status);
+      
+      if (accountResponse.ok) {
+        const accountData = await accountResponse.json();
+        console.log('[REFRESH] Account data received:', accountData);
+        console.log('[REFRESH] Account balance:', accountData.balance);
+        console.log('[REFRESH] Current account state:', account);
+        setAccount(accountData);
+        console.log('[REFRESH] Account state updated');
+        
+        // Force a re-render by updating a dummy state
+        setTimeout(() => {
+          console.log('[REFRESH] Forcing re-render after account update');
+        }, 100);
+      } else {
+        console.error('[REFRESH] Account API error:', accountResponse.status);
+      }
+
+      const transactionsResponse = await fetch(`/api/transactions?userId=${user.id}`);
+      console.log('[REFRESH] Transactions response status:', transactionsResponse.status);
+      
+      if (transactionsResponse.ok) {
+        const transactionsData = await transactionsResponse.json();
+        console.log('[REFRESH] Transactions data received:', transactionsData);
+        const userTransactions = Array.isArray(transactionsData) 
+          ? transactionsData 
+          : transactionsData.transactions || [];
+        console.log('[REFRESH] User transactions:', userTransactions);
+        console.log('[REFRESH] Current transactions state:', transactions);
+        setTransactions(userTransactions);
+        console.log('[REFRESH] Transactions state updated');
+      } else {
+        console.error('[REFRESH] Transactions API error:', transactionsResponse.status);
+      }
+    } catch (error) {
+      console.error('[REFRESH] Error refreshing account data:', error);
+    }
   }, [user.id]);
+
+  // Debug effect to watch state changes
+  useEffect(() => {
+    console.log('[STATE DEBUG] Account state changed:', account);
+  }, [account]);
+
+  useEffect(() => {
+    console.log('[STATE DEBUG] Transactions state changed:', transactions);
+  }, [transactions]);
 
   // Cleanup timeout on unmount
   useEffect(() => {

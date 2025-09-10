@@ -1,0 +1,20 @@
+# Render Deployment Configuration
+
+## Build Command
+npm run build
+
+## Start Command  
+npm start
+
+## Environment Variables
+NODE_ENV=production
+DATABASE_TYPE=file
+
+## Node Version
+18.x
+
+## Build Settings
+- Framework: Next.js
+- Root Directory: ./
+- Build Command: npm run build
+- Start Command: npm start

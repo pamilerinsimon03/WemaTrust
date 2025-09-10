@@ -10,9 +10,18 @@ if (isServer) {
     // Use require directly since we're on server side
     const serverDb = require('./server-database');
     serverDbOperations = serverDb.dbOperations;
+    console.log('[DATABASE] Server database loaded successfully');
   } catch (error) {
     console.warn('Failed to load server database:', error);
     console.error('Error details:', error);
+    // Try alternative loading method
+    try {
+      const serverDb = eval('require')('./server-database');
+      serverDbOperations = serverDb.dbOperations;
+      console.log('[DATABASE] Server database loaded with eval');
+    } catch (evalError) {
+      console.error('Failed to load server database with eval:', evalError);
+    }
   }
 }
 
@@ -395,6 +404,10 @@ const getBrowserDb = () => {
 };
 
 // Export database operations - use server database on server, browser database on client
+console.log('[DATABASE] isServer:', isServer);
+console.log('[DATABASE] serverDbOperations:', !!serverDbOperations);
+console.log('[DATABASE] Using:', isServer && serverDbOperations ? 'SERVER' : 'BROWSER');
+
 export const dbOperations = isServer && serverDbOperations ? serverDbOperations : {
   // User operations
   getUser: (id: string) => getBrowserDb().getUser(id),

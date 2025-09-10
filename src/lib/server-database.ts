@@ -1,6 +1,6 @@
 import type { User, Account, PartnerBank, Transaction, ShadowEntry, PartnerBankStatus, ShadowEntryStatus } from './types';
 
-// Server-only database using file system
+// Server-only database using file system (or in-memory on Vercel)
 class ServerDatabase {
   private data: {
     users: Map<string, User>;
@@ -21,6 +21,7 @@ class ServerDatabase {
   };
 
   private filePath: string;
+  private isVercel: boolean;
 
   constructor() {
     this.data = {
@@ -32,9 +33,19 @@ class ServerDatabase {
       auditLogs: [],
     };
     
-    this.filePath = './data/wematrust_db.json';
-    this.loadFromFile();
-    this.initializeSampleData();
+    // Check if we're on Vercel (serverless) or Render (persistent)
+    this.isVercel = process.env.VERCEL === '1';
+    
+    if (this.isVercel) {
+      // On Vercel, use in-memory only (no file persistence)
+      console.log('[DATABASE] Running in Vercel mode - in-memory only');
+      this.initializeSampleData();
+    } else {
+      // On Render or local development - use file persistence
+      this.filePath = './data/wematrust_db.json';
+      this.loadFromFile();
+      this.initializeSampleData();
+    }
   }
 
   private generateId(prefix: string): string {
@@ -53,10 +64,19 @@ class ServerDatabase {
       createdAt: new Date().toISOString(),
     };
     this.data.auditLogs.push(log);
-    this.saveToFile();
+    
+    // Only save to file in local development
+    if (!this.isVercel) {
+      this.saveToFile();
+    }
   }
 
   private saveToFile() {
+    // Skip file operations on Vercel
+    if (this.isVercel) {
+      return;
+    }
+    
     try {
       const fs = require('fs');
       const path = require('path');
@@ -78,6 +98,11 @@ class ServerDatabase {
   }
 
   private loadFromFile() {
+    // Skip file operations on Vercel
+    if (this.isVercel) {
+      return;
+    }
+    
     try {
       const fs = require('fs');
       const path = require('path');

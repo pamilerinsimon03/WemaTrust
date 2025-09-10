@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { dbOperations } from '@/lib/database';
+import { dbOperations } from '@/lib/server-database';
 
 const accountQuerySchema = z.object({
   accountNumber: z.string().optional(),
