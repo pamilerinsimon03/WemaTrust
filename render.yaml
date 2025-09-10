@@ -13,4 +13,3 @@ services:
     healthCheckPath: /
     autoDeploy: true
     branch: main
-    nodeVersion: 18
