@@ -1,20 +1,13 @@
-# Render Deployment Configuration
-
-## Build Command
-npm run build
-
-## Start Command  
-npm start
-
-## Environment Variables
-NODE_ENV=production
-DATABASE_TYPE=file
-
-## Node Version
-18.x
-
-## Build Settings
-- Framework: Next.js
-- Root Directory: ./
-- Build Command: npm run build
-- Start Command: npm start
+services:
+  - type: web
+    name: wematrust-banking
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_TYPE
+        value: file
+    healthCheckPath: /
