@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getAccount, getPartnerBanks, getTransactionsForUser, getUser } from '@/lib/store';
 import { DashboardClient } from '@/components/dashboard-client';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Loader2, Terminal } from 'lucide-react';
@@ -24,29 +23,52 @@ export default function Home() {
       return;
     }
 
-    try {
-      const currentUser = getUser(userId);
-      if (!currentUser) {
-        throw new Error('User not found. Please log in again.');
-      }
-      setUser(currentUser);
-
-      if (currentUser.accountId) {
-        const currentAccount = getAccount(currentUser.accountId);
-        if (!currentAccount) {
-          throw new Error('Associated account not found.');
+    const loadData = async () => {
+      try {
+        // Fetch user data from API
+        const userResponse = await fetch(`/api/users/${userId}`);
+        if (!userResponse.ok) {
+          throw new Error('User not found. Please log in again.');
         }
-        setAccount(currentAccount);
-      }
+        const currentUser = await userResponse.json();
+        setUser(currentUser);
 
-      setPartnerBanks(getPartnerBanks());
-      setTransactions(getTransactionsForUser(userId));
-    } catch (e: any) {
-      setError(e.message || 'An error occurred while loading data.');
-      localStorage.removeItem('userId'); // Clear invalid user id
-    } finally {
-      setIsLoading(false);
-    }
+        if (currentUser.accountId) {
+          // Fetch account data from API
+          const accountResponse = await fetch(`/api/accounts?userId=${userId}`);
+          if (!accountResponse.ok) {
+            throw new Error('Associated account not found.');
+          }
+          const currentAccount = await accountResponse.json();
+          setAccount(currentAccount);
+        }
+
+        // Fetch partner banks from API
+        const banksResponse = await fetch('/api/partner-banks');
+        if (banksResponse.ok) {
+          const banks = await banksResponse.json();
+          setPartnerBanks(banks);
+        }
+
+        // Fetch transactions from API
+        const transactionsResponse = await fetch(`/api/transactions?userId=${userId}`);
+        if (transactionsResponse.ok) {
+          const transactionsData = await transactionsResponse.json();
+          // Handle both array and object with transactions property
+          const userTransactions = Array.isArray(transactionsData) 
+            ? transactionsData 
+            : transactionsData.transactions || [];
+          setTransactions(userTransactions);
+        }
+      } catch (e: any) {
+        setError(e.message || 'An error occurred while loading data.');
+        localStorage.removeItem('userId'); // Clear invalid user id
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadData();
   }, [router]);
 
   if (isLoading) {

@@ -1,7 +1,8 @@
 'use client';
-import { useState, useActionState } from 'react';
+import { useState, useActionState, useEffect } from 'react';
 import { useFormStatus } from 'react-dom';
 import { simulateTransfer } from '@/app/actions';
+import { useToast } from '@/hooks/use-toast';
 import {
   Card,
   CardContent,
@@ -38,7 +39,8 @@ import { StatusBadge } from './status-badge';
 
 const initialState = {
   message: '',
-  errors: {},
+  errors: {} as Record<string, string[]>,
+  success: false,
 };
 
 function SubmitButton() {
@@ -61,33 +63,60 @@ function SubmitButton() {
   );
 }
 
-export function TransferForm({ user, partnerBanks }: { user: User, partnerBanks: PartnerBank[] }) {
+export function TransferForm({ user, partnerBanks, onTransferSuccess }: { user: User, partnerBanks: PartnerBank[], onTransferSuccess?: () => void }) {
   const [state, formAction] = useActionState(simulateTransfer, initialState);
   const [selectedBankId, setSelectedBankId] = useState<string>('');
   const [showDialog, setShowDialog] = useState(false);
+  const [lastSuccessMessage, setLastSuccessMessage] = useState<string>('');
+  const { toast } = useToast();
   
   const selectedBank = partnerBanks.find(b => b.id === selectedBankId);
   const requiresConfirmation = selectedBank && (selectedBank.status === 'SLOW' || selectedBank.status === 'DOWN');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (requiresConfirmation) {
-      setShowDialog(true);
-    } else {
-      const form = document.getElementById('transfer-form') as HTMLFormElement;
-      if (form) {
-          form.requestSubmit();
+  // Show toast notification when transfer is successful
+  useEffect(() => {
+    if (state.message && !state.errors?.from_bank && !state.errors?.to_account && !state.errors?.amount) {
+      if (state.success) {
+        // Only show toast if this is a new success message
+        if (state.message !== lastSuccessMessage) {
+          toast({
+            title: 'Transfer Successful!',
+            description: state.message,
+            variant: 'default',
+          });
+          setLastSuccessMessage(state.message);
+          
+          // Call the refresh callback to update the UI (only once per success)
+          if (onTransferSuccess) {
+            onTransferSuccess();
+          }
+        }
+      } else {
+        toast({
+          title: 'Transfer Failed',
+          description: state.message,
+          variant: 'destructive',
+        });
       }
     }
+  }, [state.message, state.success, state.errors, toast, onTransferSuccess, lastSuccessMessage]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (requiresConfirmation) {
+      event.preventDefault();
+      setShowDialog(true);
+    }
+    // If no confirmation required, let the form submit normally
   };
 
   const handleDialogContinue = () => {
+    setShowDialog(false);
+    // Submit the form after confirmation
     const form = document.getElementById('transfer-form') as HTMLFormElement;
     if (form) {
-      form.requestSubmit();
+      const formData = new FormData(form);
+      formAction(formData);
     }
-    setShowDialog(false);
   };
   
   return (

@@ -18,6 +18,7 @@ export type ShadowEntryStatus = 'pending' | 'cleared' | 'failed';
 
 export interface ShadowEntry {
   id: string;
+  accountId: string;
   txn_ref: string;
   amount: number;
   status: ShadowEntryStatus;
@@ -67,4 +68,5 @@ export type ServerEvent =
   | { type: 'shadow_updated'; data: ShadowEntryEvent }
   | { type: 'partner_status_changed'; data: PartnerBank }
   | { type: 'new_transaction'; data: TransactionEvent }
-  | { type: 'balance_updated'; data: BalanceUpdateEvent };
+  | { type: 'balance_updated'; data: BalanceUpdateEvent }
+  | { type: 'notification'; data: { userId: string; notification: { id: string; message: string; timestamp: string; type: string } } };

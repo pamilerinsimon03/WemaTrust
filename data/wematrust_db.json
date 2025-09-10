@@ -1,0 +1,3596 @@
+{
+  "users": [
+    [
+      "admin",
+      {
+        "id": "admin",
+        "name": "Admin",
+        "roles": [
+          "admin"
+        ]
+      }
+    ],
+    [
+      "user1",
+      {
+        "id": "user1",
+        "name": "Demo User 1",
+        "roles": [
+          "user"
+        ],
+        "accountId": "acc_1"
+      }
+    ],
+    [
+      "user2",
+      {
+        "id": "user2",
+        "name": "Demo User 2",
+        "roles": [
+          "user"
+        ],
+        "accountId": "acc_2"
+      }
+    ]
+  ],
+  "accounts": [
+    [
+      "acc_1",
+      {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 62000,
+        "shadowEntries": []
+      }
+    ],
+    [
+      "acc_2",
+      {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 80500,
+        "shadowEntries": []
+      }
+    ]
+  ],
+  "partnerBanks": [
+    [
+      "bank_a",
+      {
+        "id": "bank_a",
+        "name": "Zenith Bank",
+        "status": "UP",
+        "historicalSuccessRate": 0.98
+      }
+    ],
+    [
+      "bank_b",
+      {
+        "id": "bank_b",
+        "name": "GTBank",
+        "status": "UP",
+        "historicalSuccessRate": 0.99
+      }
+    ],
+    [
+      "bank_c",
+      {
+        "id": "bank_c",
+        "name": "Access Bank",
+        "status": "SLOW",
+        "historicalSuccessRate": 0.85
+      }
+    ],
+    [
+      "bank_d",
+      {
+        "id": "bank_d",
+        "name": "UBA",
+        "status": "DOWN",
+        "historicalSuccessRate": 0.6
+      }
+    ]
+  ],
+  "transactions": [
+    [
+      "user1",
+      [
+        {
+          "txn_ref": "PERSISTENCE_TEST_123",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 3000,
+          "status": "success",
+          "note": "Persistence test transfer",
+          "id": "tx_1757454840865_z88z81e8u",
+          "createdAt": "2025-09-09T21:54:00.865Z"
+        },
+        {
+          "txn_ref": "USER_TO_USER_TEST_456",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 2000,
+          "status": "success",
+          "note": "User to user transfer test",
+          "id": "tx_1757454968001_a4jh39y7s",
+          "createdAt": "2025-09-09T21:56:08.001Z"
+        },
+        {
+          "txn_ref": "FIXED_TRANSFER_TEST_789",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 1500,
+          "status": "success",
+          "note": "Fixed transfer test",
+          "id": "tx_1757455201038_1jtd9ovn1",
+          "createdAt": "2025-09-09T22:00:01.038Z"
+        },
+        {
+          "txn_ref": "TEST_ASYNC_123",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 1000,
+          "status": "success",
+          "note": "Test async database",
+          "id": "tx_1757455972504_ftit2wfuq",
+          "createdAt": "2025-09-09T22:12:52.504Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "FINAL_TEST_123",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 2000,
+          "status": "success",
+          "note": "Final test transfer",
+          "id": "tx_1757456326655_tpdnuobve",
+          "createdAt": "2025-09-09T22:18:46.655Z"
+        },
+        {
+          "txn_ref": "WT_1757456544848",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757456544851_lqxiwqfsd",
+          "createdAt": "2025-09-09T22:22:24.851Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "PERSISTENCE_TEST_456",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 1000,
+          "status": "success",
+          "note": "Persistence test",
+          "id": "tx_1757457215355_x5ydujxx8",
+          "createdAt": "2025-09-09T22:33:35.355Z"
+        },
+        {
+          "txn_ref": "WT_1757457609783",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757457609784_n0ajb816v",
+          "createdAt": "2025-09-09T22:40:09.784Z"
+        },
+        {
+          "txn_ref": "WT_1757457688094",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757457688094_1w694xk6q",
+          "createdAt": "2025-09-09T22:41:28.094Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757457737777",
+          "type": "credit",
+          "amount": 1000,
+          "status": "success",
+          "note": "From user2",
+          "from_bank": "bank_a",
+          "id": "tx_1757457741937_qz5faveul",
+          "createdAt": "2025-09-09T22:42:21.937Z"
+        },
+        {
+          "txn_ref": "WT_1757481854587",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757481854588_eo19if7ic",
+          "createdAt": "2025-09-10T05:24:14.588Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "TEST_FIX_789",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 500,
+          "status": "success",
+          "note": "Test after fixes",
+          "id": "tx_1757482238068_8twcd0z8n",
+          "createdAt": "2025-09-10T05:30:38.068Z"
+        },
+        {
+          "txn_ref": "WT_1757482455252",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757482455253_8eyrj96k2",
+          "createdAt": "2025-09-10T05:34:15.253Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757490769880",
+          "type": "credit",
+          "amount": 5000,
+          "status": "success",
+          "note": "From user2",
+          "from_bank": "bank_a",
+          "id": "tx_1757490774185_6va68n5cf",
+          "createdAt": "2025-09-10T07:52:54.185Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757490828924",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user2",
+          "from_bank": "bank_a",
+          "id": "tx_1757490832192_ha8p0fzqz",
+          "createdAt": "2025-09-10T07:53:52.192Z"
+        },
+        {
+          "txn_ref": "WT_1757490891944",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757490891944_jhkyf4hnm",
+          "createdAt": "2025-09-10T07:54:51.944Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757491037819",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user2",
+          "from_bank": "bank_a",
+          "id": "tx_1757491041494_h0tuokm1v",
+          "createdAt": "2025-09-10T07:57:21.494Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "DIRECT_TEST_123",
+          "type": "debit",
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "amount": 1000,
+          "status": "success",
+          "note": "Direct transfer test",
+          "id": "tx_1757491636499_ugt1egch4",
+          "createdAt": "2025-09-10T08:07:16.499Z"
+        },
+        {
+          "txn_ref": "WT_1757491821829",
+          "type": "debit",
+          "amount": 2000,
+          "to_account": "9876543210",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user1",
+          "id": "tx_1757491821829_4uzj9hjkd",
+          "createdAt": "2025-09-10T08:10:21.830Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757492390125",
+          "type": "debit",
+          "amount": 1000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Test direct transfer",
+          "status": "success",
+          "id": "tx_1757492390125_cjf04aqf9",
+          "createdAt": "2025-09-10T08:19:50.125Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757492623190",
+          "type": "debit",
+          "amount": 2000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Groceries",
+          "status": "success",
+          "id": "tx_1757492623203_j0ahj3ufi",
+          "createdAt": "2025-09-10T08:23:43.203Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493020248",
+          "type": "debit",
+          "amount": 500,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Test toast fix",
+          "status": "success",
+          "id": "tx_1757493020248_2faitpm79",
+          "createdAt": "2025-09-10T08:30:20.248Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493160491",
+          "type": "debit",
+          "amount": 2000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Groceries",
+          "status": "success",
+          "id": "tx_1757493160491_zecnj1xjb",
+          "createdAt": "2025-09-10T08:32:40.491Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493492370",
+          "type": "debit",
+          "amount": 1000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Test SMS notifications",
+          "status": "success",
+          "id": "tx_1757493492370_3sbcrwbed",
+          "createdAt": "2025-09-10T08:38:12.370Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493534419",
+          "type": "credit",
+          "amount": 500,
+          "from_bank": "WemaTrust",
+          "note": "Test SMS from user2",
+          "status": "success",
+          "id": "tx_1757493534430_4g9791pbe",
+          "createdAt": "2025-09-10T08:38:54.430Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493734979",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "Groceri",
+          "status": "success",
+          "id": "tx_1757493734982_py0iw7buv",
+          "createdAt": "2025-09-10T08:42:14.982Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757493953285",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757493953285_7trxo2sip",
+          "createdAt": "2025-09-10T08:45:53.285Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757494008546",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757494008546_8i5f7qb09",
+          "createdAt": "2025-09-10T08:46:48.546Z"
+        },
+        {
+          "userId": "user1",
+          "txn_ref": "WT_1757494485408",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "9876543210",
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757494485408_dn6616q32",
+          "createdAt": "2025-09-10T08:54:45.408Z"
+        }
+      ]
+    ],
+    [
+      "user2",
+      [
+        {
+          "txn_ref": "FIXED_TRANSFER_TEST_789",
+          "type": "credit",
+          "amount": 1500,
+          "status": "success",
+          "note": "Fixed transfer test",
+          "from_bank": "bank_a",
+          "id": "tx_1757455230378_2jrntqwqj",
+          "createdAt": "2025-09-09T22:00:30.378Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "FINAL_TEST_123",
+          "type": "credit",
+          "amount": 2000,
+          "status": "success",
+          "note": "Final test transfer",
+          "from_bank": "bank_a",
+          "id": "tx_1757456356475_idl1d0ghu",
+          "createdAt": "2025-09-09T22:19:16.475Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757456544848",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757456548683_irqdfwm4h",
+          "createdAt": "2025-09-09T22:22:28.683Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "PERSISTENCE_TEST_456",
+          "type": "credit",
+          "amount": 1000,
+          "status": "success",
+          "note": "Persistence test",
+          "from_bank": "bank_a",
+          "id": "tx_1757457256817_x2uaobdjj",
+          "createdAt": "2025-09-09T22:34:16.817Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757457609783",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757457616646_uoo79kisr",
+          "createdAt": "2025-09-09T22:40:16.646Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757457688094",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757457691461_3n2wrxfoq",
+          "createdAt": "2025-09-09T22:41:31.461Z"
+        },
+        {
+          "txn_ref": "WT_1757457737777",
+          "type": "debit",
+          "amount": 1000,
+          "to_account": "0123456789",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user2",
+          "id": "tx_1757457737777_ywxt609xj",
+          "createdAt": "2025-09-09T22:42:17.777Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757481854587",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757481861789_5ng4w09vp",
+          "createdAt": "2025-09-10T05:24:21.789Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757482455252",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757482459776_r1ivesx21",
+          "createdAt": "2025-09-10T05:34:19.776Z"
+        },
+        {
+          "txn_ref": "WT_1757490769880",
+          "type": "debit",
+          "amount": 5000,
+          "to_account": "0123456789",
+          "from_bank": "bank_a",
+          "note": "GGs",
+          "status": "success",
+          "userId": "user2",
+          "id": "tx_1757490769882_kcq5keomm",
+          "createdAt": "2025-09-10T07:52:49.883Z"
+        },
+        {
+          "txn_ref": "WT_1757490828924",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "0123456789",
+          "from_bank": "bank_a",
+          "note": "GGw23",
+          "status": "success",
+          "userId": "user2",
+          "id": "tx_1757490828933_c9i6cqvrc",
+          "createdAt": "2025-09-10T07:53:48.933Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757490891944",
+          "type": "credit",
+          "amount": 3000,
+          "status": "success",
+          "note": "From user1",
+          "from_bank": "bank_a",
+          "id": "tx_1757490895471_n29hn82jo",
+          "createdAt": "2025-09-10T07:54:55.471Z"
+        },
+        {
+          "txn_ref": "WT_1757491037819",
+          "type": "debit",
+          "amount": 3000,
+          "to_account": "0123456789",
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user2",
+          "id": "tx_1757491037821_zfmpqbi3d",
+          "createdAt": "2025-09-10T07:57:17.821Z"
+        },
+        {
+          "txn_ref": "WT_1757491821829",
+          "type": "credit",
+          "amount": 2000,
+          "from_bank": "bank_a",
+          "note": "Groceries",
+          "status": "success",
+          "userId": "user2",
+          "id": "tx_1757491821839_1vbcko0gv",
+          "createdAt": "2025-09-10T08:10:21.839Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757492390125",
+          "type": "credit",
+          "amount": 1000,
+          "from_bank": "WemaTrust",
+          "note": "Test direct transfer",
+          "status": "success",
+          "id": "tx_1757492390158_6jky400ln",
+          "createdAt": "2025-09-10T08:19:50.158Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757492623190",
+          "type": "credit",
+          "amount": 2000,
+          "from_bank": "WemaTrust",
+          "note": "Groceries",
+          "status": "success",
+          "id": "tx_1757492623209_fhuchk73b",
+          "createdAt": "2025-09-10T08:23:43.209Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493020248",
+          "type": "credit",
+          "amount": 500,
+          "from_bank": "WemaTrust",
+          "note": "Test toast fix",
+          "status": "success",
+          "id": "tx_1757493020253_g0fyfrzdv",
+          "createdAt": "2025-09-10T08:30:20.253Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493160491",
+          "type": "credit",
+          "amount": 2000,
+          "from_bank": "WemaTrust",
+          "note": "Groceries",
+          "status": "success",
+          "id": "tx_1757493160495_rp7nmr8un",
+          "createdAt": "2025-09-10T08:32:40.495Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493492370",
+          "type": "credit",
+          "amount": 1000,
+          "from_bank": "WemaTrust",
+          "note": "Test SMS notifications",
+          "status": "success",
+          "id": "tx_1757493492398_07g201d82",
+          "createdAt": "2025-09-10T08:38:12.398Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493534419",
+          "type": "debit",
+          "amount": 500,
+          "to_account": "0123456789",
+          "from_bank": "WemaTrust",
+          "note": "Test SMS from user2",
+          "status": "success",
+          "id": "tx_1757493534419_gdzof8559",
+          "createdAt": "2025-09-10T08:38:54.419Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493734979",
+          "type": "credit",
+          "amount": 3000,
+          "from_bank": "WemaTrust",
+          "note": "Groceri",
+          "status": "success",
+          "id": "tx_1757493735002_kd3k6ccyv",
+          "createdAt": "2025-09-10T08:42:15.002Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757493953285",
+          "type": "credit",
+          "amount": 3000,
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757493953335_r3sd87cqa",
+          "createdAt": "2025-09-10T08:45:53.335Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757494008546",
+          "type": "credit",
+          "amount": 3000,
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757494008550_moqt0x0et",
+          "createdAt": "2025-09-10T08:46:48.550Z"
+        },
+        {
+          "userId": "user2",
+          "txn_ref": "WT_1757494485408",
+          "type": "credit",
+          "amount": 3000,
+          "from_bank": "WemaTrust",
+          "note": "GGs",
+          "status": "success",
+          "id": "tx_1757494485414_uq9ajjrzz",
+          "createdAt": "2025-09-10T08:54:45.414Z"
+        }
+      ]
+    ]
+  ],
+  "shadowEntries": [
+    [
+      "acc_2",
+      [
+        {
+          "id": "sh_1757454984651_dzpbrqx44",
+          "accountId": "acc_2",
+          "txn_ref": "USER_TO_USER_TEST_456",
+          "amount": 2000,
+          "status": "failed",
+          "createdAt": "2025-09-09T21:56:24.651Z",
+          "updatedAt": "2025-09-09T21:57:31.441Z"
+        }
+      ]
+    ]
+  ],
+  "auditLogs": [
+    {
+      "id": "audit_1757454840865_txugaa3z4",
+      "tableName": "transactions",
+      "recordId": "tx_1757454840865_z88z81e8u",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"txn_ref\":\"PERSISTENCE_TEST_123\",\"type\":\"debit\",\"to_account\":\"9876543210\",\"from_bank\":\"bank_a\",\"amount\":3000,\"status\":\"success\",\"note\":\"Persistence test transfer\",\"id\":\"tx_1757454840865_z88z81e8u\",\"createdAt\":\"2025-09-09T21:54:00.865Z\",\"userId\":\"user1\"}",
+      "createdAt": "2025-09-09T21:54:00.865Z"
+    },
+    {
+      "id": "audit_1757454840876_0tfuo1n77",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE_BALANCE",
+      "oldValues": "{\"balance\":100000}",
+      "newValues": "{\"balance\":97000}",
+      "createdAt": "2025-09-09T21:54:00.876Z"
+    },
+    {
+      "id": "audit_1757454968001_xs390dqkm",
+      "tableName": "transactions",
+      "recordId": "tx_1757454968001_a4jh39y7s",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"txn_ref\":\"USER_TO_USER_TEST_456\",\"type\":\"debit\",\"to_account\":\"9876543210\",\"from_bank\":\"bank_a\",\"amount\":2000,\"status\":\"success\",\"note\":\"User to user transfer test\",\"id\":\"tx_1757454968001_a4jh39y7s\",\"createdAt\":\"2025-09-09T21:56:08.001Z\",\"userId\":\"user1\"}",
+      "createdAt": "2025-09-09T21:56:08.001Z"
+    },
+    {
+      "id": "audit_1757454968037_mcx3lqodi",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE_BALANCE",
+      "oldValues": "{\"balance\":97000}",
+      "newValues": "{\"balance\":95000}",
+      "createdAt": "2025-09-09T21:56:08.038Z"
+    },
+    {
+      "id": "audit_1757454984651_tr3alwlhh",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757454984651_dzpbrqx44",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"id\":\"sh_1757454984651_dzpbrqx44\",\"accountId\":\"acc_2\",\"txn_ref\":\"USER_TO_USER_TEST_456\",\"amount\":2000,\"status\":\"pending\",\"createdAt\":\"2025-09-09T21:56:24.651Z\",\"updatedAt\":\"2025-09-09T21:56:24.651Z\"}",
+      "createdAt": "2025-09-09T21:56:24.651Z"
+    },
+    {
+      "id": "audit_1757454997936_haf05yced",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757454984651_dzpbrqx44",
+      "action": "UPDATE_STATUS",
+      "oldValues": "{\"status\":\"pending\"}",
+      "newValues": "{\"status\":\"failed\"}",
+      "createdAt": "2025-09-09T21:56:37.936Z"
+    },
+    {
+      "id": "audit_1757455017658_2xj9hx4my",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757454984651_dzpbrqx44",
+      "action": "UPDATE_STATUS",
+      "oldValues": "{\"status\":\"failed\"}",
+      "newValues": "{\"status\":\"failed\"}",
+      "createdAt": "2025-09-09T21:56:57.659Z"
+    },
+    {
+      "id": "audit_1757455035683_0iz0sjd41",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757454984651_dzpbrqx44",
+      "action": "UPDATE_STATUS",
+      "oldValues": "{\"status\":\"failed\"}",
+      "newValues": "{\"status\":\"failed\"}",
+      "createdAt": "2025-09-09T21:57:15.683Z"
+    },
+    {
+      "id": "audit_1757455051441_7cj9iikct",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757454984651_dzpbrqx44",
+      "action": "UPDATE_STATUS",
+      "oldValues": "{\"status\":\"failed\"}",
+      "newValues": "{\"status\":\"failed\"}",
+      "createdAt": "2025-09-09T21:57:31.441Z"
+    },
+    {
+      "id": "audit_1757455201039_izkkj30mf",
+      "tableName": "transactions",
+      "recordId": "tx_1757455201038_1jtd9ovn1",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"txn_ref\":\"FIXED_TRANSFER_TEST_789\",\"type\":\"debit\",\"to_account\":\"9876543210\",\"from_bank\":\"bank_a\",\"amount\":1500,\"status\":\"success\",\"note\":\"Fixed transfer test\",\"id\":\"tx_1757455201038_1jtd9ovn1\",\"createdAt\":\"2025-09-09T22:00:01.038Z\",\"userId\":\"user1\"}",
+      "createdAt": "2025-09-09T22:00:01.039Z"
+    },
+    {
+      "id": "audit_1757455201073_id9dleo8n",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE_BALANCE",
+      "oldValues": "{\"balance\":95000}",
+      "newValues": "{\"balance\":93500}",
+      "createdAt": "2025-09-09T22:00:01.073Z"
+    },
+    {
+      "id": "audit_1757455226535_4uahgcoss",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757455226528_a9t6gsnbw",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"id\":\"sh_1757455226528_a9t6gsnbw\",\"accountId\":\"acc_2\",\"txn_ref\":\"FIXED_TRANSFER_TEST_789\",\"amount\":1500,\"status\":\"pending\",\"createdAt\":\"2025-09-09T22:00:26.535Z\",\"updatedAt\":\"2025-09-09T22:00:26.535Z\"}",
+      "createdAt": "2025-09-09T22:00:26.535Z"
+    },
+    {
+      "id": "audit_1757455230351_jeuqtk3a7",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757455226528_a9t6gsnbw",
+      "action": "UPDATE_STATUS",
+      "oldValues": "{\"status\":\"pending\"}",
+      "newValues": "{\"status\":\"cleared\"}",
+      "createdAt": "2025-09-09T22:00:30.351Z"
+    },
+    {
+      "id": "audit_1757455230356_yzn23otrf",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE_BALANCE",
+      "oldValues": "{\"balance\":50000}",
+      "newValues": "{\"balance\":51500}",
+      "createdAt": "2025-09-09T22:00:30.356Z"
+    },
+    {
+      "id": "audit_1757455230369_izy2jahx9",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757455226528_a9t6gsnbw",
+      "action": "DELETE",
+      "oldValues": "{\"id\":\"sh_1757455226528_a9t6gsnbw\",\"accountId\":\"acc_2\",\"txn_ref\":\"FIXED_TRANSFER_TEST_789\",\"amount\":1500,\"status\":\"cleared\",\"createdAt\":\"2025-09-09T22:00:26.535Z\",\"updatedAt\":\"2025-09-09T22:00:30.351Z\"}",
+      "newValues": null,
+      "createdAt": "2025-09-09T22:00:30.369Z"
+    },
+    {
+      "id": "audit_1757455230378_j4mc75xm3",
+      "tableName": "transactions",
+      "recordId": "tx_1757455230378_2jrntqwqj",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"txn_ref\":\"FIXED_TRANSFER_TEST_789\",\"type\":\"credit\",\"amount\":1500,\"status\":\"success\",\"note\":\"Fixed transfer test\",\"from_bank\":\"bank_a\",\"id\":\"tx_1757455230378_2jrntqwqj\",\"createdAt\":\"2025-09-09T22:00:30.378Z\",\"userId\":\"user2\"}",
+      "createdAt": "2025-09-09T22:00:30.378Z"
+    },
+    {
+      "id": "audit_1757455972504_zd7w7qv0j",
+      "tableName": "transactions",
+      "recordId": "tx_1757455972504_ftit2wfuq",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": "{\"txn_ref\":\"TEST_ASYNC_123\",\"type\":\"debit\",\"to_account\":\"9876543210\",\"from_bank\":\"bank_a\",\"amount\":1000,\"status\":\"success\",\"note\":\"Test async database\",\"id\":\"tx_1757455972504_ftit2wfuq\",\"createdAt\":\"2025-09-09T22:12:52.504Z\",\"userId\":\"user1\"}",
+      "createdAt": "2025-09-09T22:12:52.504Z"
+    },
+    {
+      "id": "audit_1757455972507_10vj0fye2",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE_BALANCE",
+      "oldValues": "{\"balance\":93500}",
+      "newValues": "{\"balance\":92500}",
+      "createdAt": "2025-09-09T22:12:52.507Z"
+    },
+    {
+      "id": "audit_1757456326671_lajxlpsuf",
+      "tableName": "transactions",
+      "recordId": "tx_1757456326655_tpdnuobve",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "FINAL_TEST_123",
+        "type": "debit",
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "amount": 2000,
+        "status": "success",
+        "note": "Final test transfer",
+        "id": "tx_1757456326655_tpdnuobve",
+        "createdAt": "2025-09-09T22:18:46.655Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:18:46.671Z"
+    },
+    {
+      "id": "audit_1757456326683_fnetl6tfd",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 92500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 90500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:18:46.683Z"
+    },
+    {
+      "id": "audit_1757456353157_3wd1gn6t9",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456353155_4tmm73axi",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757456353155_4tmm73axi",
+        "accountId": "acc_2",
+        "txn_ref": "FINAL_TEST_123",
+        "amount": 2000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:19:13.155Z",
+        "updatedAt": "2025-09-09T22:19:13.155Z"
+      },
+      "createdAt": "2025-09-09T22:19:13.157Z"
+    },
+    {
+      "id": "audit_1757456356460_mhqavsrsl",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456353155_4tmm73axi",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757456353155_4tmm73axi",
+        "accountId": "acc_2",
+        "txn_ref": "FINAL_TEST_123",
+        "amount": 2000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:19:13.155Z",
+        "updatedAt": "2025-09-09T22:19:13.155Z"
+      },
+      "newValues": {
+        "id": "sh_1757456353155_4tmm73axi",
+        "accountId": "acc_2",
+        "txn_ref": "FINAL_TEST_123",
+        "amount": 2000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:19:13.155Z",
+        "updatedAt": "2025-09-09T22:19:16.454Z"
+      },
+      "createdAt": "2025-09-09T22:19:16.460Z"
+    },
+    {
+      "id": "audit_1757456356467_w67v58qpc",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 51500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 53500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:19:16.467Z"
+    },
+    {
+      "id": "audit_1757456356471_vkenn19pn",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456353155_4tmm73axi",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757456353155_4tmm73axi",
+        "accountId": "acc_2",
+        "txn_ref": "FINAL_TEST_123",
+        "amount": 2000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:19:13.155Z",
+        "updatedAt": "2025-09-09T22:19:16.454Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:19:16.471Z"
+    },
+    {
+      "id": "audit_1757456356476_3eqwx3xwj",
+      "tableName": "transactions",
+      "recordId": "tx_1757456356475_idl1d0ghu",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "FINAL_TEST_123",
+        "type": "credit",
+        "amount": 2000,
+        "status": "success",
+        "note": "Final test transfer",
+        "from_bank": "bank_a",
+        "id": "tx_1757456356475_idl1d0ghu",
+        "createdAt": "2025-09-09T22:19:16.475Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:19:16.476Z"
+    },
+    {
+      "id": "audit_1757456544855_b2lz39mu7",
+      "tableName": "transactions",
+      "recordId": "tx_1757456544851_lqxiwqfsd",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757456544848",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757456544851_lqxiwqfsd",
+        "createdAt": "2025-09-09T22:22:24.851Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:22:24.855Z"
+    },
+    {
+      "id": "audit_1757456544862_2plu12td1",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 90500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 87500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:22:24.862Z"
+    },
+    {
+      "id": "audit_1757456546648_lawu2lglo",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456546646_46y3i9kvf",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757456546646_46y3i9kvf",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757456544848",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:22:26.646Z",
+        "updatedAt": "2025-09-09T22:22:26.646Z"
+      },
+      "createdAt": "2025-09-09T22:22:26.648Z"
+    },
+    {
+      "id": "audit_1757456548676_8pjo31s4b",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456546646_46y3i9kvf",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757456546646_46y3i9kvf",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757456544848",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:22:26.646Z",
+        "updatedAt": "2025-09-09T22:22:26.646Z"
+      },
+      "newValues": {
+        "id": "sh_1757456546646_46y3i9kvf",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757456544848",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:22:26.646Z",
+        "updatedAt": "2025-09-09T22:22:28.673Z"
+      },
+      "createdAt": "2025-09-09T22:22:28.676Z"
+    },
+    {
+      "id": "audit_1757456548678_3q5aotkir",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 53500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 56500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:22:28.678Z"
+    },
+    {
+      "id": "audit_1757456548681_3q6e9hdl4",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757456546646_46y3i9kvf",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757456546646_46y3i9kvf",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757456544848",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:22:26.646Z",
+        "updatedAt": "2025-09-09T22:22:28.673Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:22:28.681Z"
+    },
+    {
+      "id": "audit_1757456548684_n2k0ozrgm",
+      "tableName": "transactions",
+      "recordId": "tx_1757456548683_irqdfwm4h",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757456544848",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757456548683_irqdfwm4h",
+        "createdAt": "2025-09-09T22:22:28.683Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:22:28.684Z"
+    },
+    {
+      "id": "audit_1757457215424_u2c66ii35",
+      "tableName": "transactions",
+      "recordId": "tx_1757457215355_x5ydujxx8",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "type": "debit",
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "amount": 1000,
+        "status": "success",
+        "note": "Persistence test",
+        "id": "tx_1757457215355_x5ydujxx8",
+        "createdAt": "2025-09-09T22:33:35.355Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:33:35.424Z"
+    },
+    {
+      "id": "audit_1757457215439_0skqm7tl2",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 87500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 86500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:33:35.439Z"
+    },
+    {
+      "id": "audit_1757457253722_ngdkzx6nn",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457253712_9mucf3nsr",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757457253712_9mucf3nsr",
+        "accountId": "acc_2",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "amount": 1000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:34:13.712Z",
+        "updatedAt": "2025-09-09T22:34:13.712Z"
+      },
+      "createdAt": "2025-09-09T22:34:13.723Z"
+    },
+    {
+      "id": "audit_1757457256788_dbe7ddqh0",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457253712_9mucf3nsr",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757457253712_9mucf3nsr",
+        "accountId": "acc_2",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "amount": 1000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:34:13.712Z",
+        "updatedAt": "2025-09-09T22:34:13.712Z"
+      },
+      "newValues": {
+        "id": "sh_1757457253712_9mucf3nsr",
+        "accountId": "acc_2",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "amount": 1000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:34:13.712Z",
+        "updatedAt": "2025-09-09T22:34:16.784Z"
+      },
+      "createdAt": "2025-09-09T22:34:16.788Z"
+    },
+    {
+      "id": "audit_1757457256792_tv54b15mo",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 56500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 57500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:34:16.792Z"
+    },
+    {
+      "id": "audit_1757457256809_szqvxev5l",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457253712_9mucf3nsr",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757457253712_9mucf3nsr",
+        "accountId": "acc_2",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "amount": 1000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:34:13.712Z",
+        "updatedAt": "2025-09-09T22:34:16.784Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:34:16.809Z"
+    },
+    {
+      "id": "audit_1757457256821_vevjtvgjw",
+      "tableName": "transactions",
+      "recordId": "tx_1757457256817_x2uaobdjj",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "PERSISTENCE_TEST_456",
+        "type": "credit",
+        "amount": 1000,
+        "status": "success",
+        "note": "Persistence test",
+        "from_bank": "bank_a",
+        "id": "tx_1757457256817_x2uaobdjj",
+        "createdAt": "2025-09-09T22:34:16.817Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:34:16.821Z"
+    },
+    {
+      "id": "audit_1757457609818_mqkiqtf2r",
+      "tableName": "transactions",
+      "recordId": "tx_1757457609784_n0ajb816v",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757457609783",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757457609784_n0ajb816v",
+        "createdAt": "2025-09-09T22:40:09.784Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:40:09.818Z"
+    },
+    {
+      "id": "audit_1757457609868_ixr01bu5m",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 86500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:40:09.868Z"
+    },
+    {
+      "id": "audit_1757457614347_7qbre3e33",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457614343_4i7sym38i",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757457614343_4i7sym38i",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457609783",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:40:14.343Z",
+        "updatedAt": "2025-09-09T22:40:14.343Z"
+      },
+      "createdAt": "2025-09-09T22:40:14.347Z"
+    },
+    {
+      "id": "audit_1757457616613_5ye5ix1v0",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457614343_4i7sym38i",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757457614343_4i7sym38i",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457609783",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:40:14.343Z",
+        "updatedAt": "2025-09-09T22:40:14.343Z"
+      },
+      "newValues": {
+        "id": "sh_1757457614343_4i7sym38i",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457609783",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:40:14.343Z",
+        "updatedAt": "2025-09-09T22:40:16.546Z"
+      },
+      "createdAt": "2025-09-09T22:40:16.613Z"
+    },
+    {
+      "id": "audit_1757457616633_nqre8qpaz",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 57500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:40:16.633Z"
+    },
+    {
+      "id": "audit_1757457616645_v8rts9bzp",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457614343_4i7sym38i",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757457614343_4i7sym38i",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457609783",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:40:14.343Z",
+        "updatedAt": "2025-09-09T22:40:16.546Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:40:16.645Z"
+    },
+    {
+      "id": "audit_1757457616648_w4y84flpm",
+      "tableName": "transactions",
+      "recordId": "tx_1757457616646_uoo79kisr",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757457609783",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757457616646_uoo79kisr",
+        "createdAt": "2025-09-09T22:40:16.646Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:40:16.648Z"
+    },
+    {
+      "id": "audit_1757457688099_c6brxqqbz",
+      "tableName": "transactions",
+      "recordId": "tx_1757457688094_1w694xk6q",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757457688094",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757457688094_1w694xk6q",
+        "createdAt": "2025-09-09T22:41:28.094Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:41:28.099Z"
+    },
+    {
+      "id": "audit_1757457688111_9bgidar9y",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:41:28.111Z"
+    },
+    {
+      "id": "audit_1757457689163_csp8nzk9g",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457689161_szp13yu5u",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757457689161_szp13yu5u",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457688094",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:41:29.161Z",
+        "updatedAt": "2025-09-09T22:41:29.161Z"
+      },
+      "createdAt": "2025-09-09T22:41:29.163Z"
+    },
+    {
+      "id": "audit_1757457691201_5eqaz9k58",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457689161_szp13yu5u",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757457689161_szp13yu5u",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457688094",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:41:29.161Z",
+        "updatedAt": "2025-09-09T22:41:29.161Z"
+      },
+      "newValues": {
+        "id": "sh_1757457689161_szp13yu5u",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457688094",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:41:29.161Z",
+        "updatedAt": "2025-09-09T22:41:31.195Z"
+      },
+      "createdAt": "2025-09-09T22:41:31.201Z"
+    },
+    {
+      "id": "audit_1757457691293_92b9jr1jt",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:41:31.293Z"
+    },
+    {
+      "id": "audit_1757457691429_idoxld7q7",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457689161_szp13yu5u",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757457689161_szp13yu5u",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757457688094",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:41:29.161Z",
+        "updatedAt": "2025-09-09T22:41:31.195Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:41:31.429Z"
+    },
+    {
+      "id": "audit_1757457691479_qdjce33fq",
+      "tableName": "transactions",
+      "recordId": "tx_1757457691461_3n2wrxfoq",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757457688094",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757457691461_3n2wrxfoq",
+        "createdAt": "2025-09-09T22:41:31.461Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:41:31.480Z"
+    },
+    {
+      "id": "audit_1757457737791_whroglt1r",
+      "tableName": "transactions",
+      "recordId": "tx_1757457737777_ywxt609xj",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757457737777",
+        "type": "debit",
+        "amount": 1000,
+        "to_account": "0123456789",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user2",
+        "id": "tx_1757457737777_ywxt609xj",
+        "createdAt": "2025-09-09T22:42:17.777Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-09T22:42:17.791Z"
+    },
+    {
+      "id": "audit_1757457737797_x1wnif99o",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 62500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:42:17.798Z"
+    },
+    {
+      "id": "audit_1757457739890_4vhqvwb4s",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457739887_k8tdyghmd",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757457739887_k8tdyghmd",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757457737777",
+        "amount": 1000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:42:19.888Z",
+        "updatedAt": "2025-09-09T22:42:19.888Z"
+      },
+      "createdAt": "2025-09-09T22:42:19.890Z"
+    },
+    {
+      "id": "audit_1757457741917_s7a63aa4z",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457739887_k8tdyghmd",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757457739887_k8tdyghmd",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757457737777",
+        "amount": 1000,
+        "status": "pending",
+        "createdAt": "2025-09-09T22:42:19.888Z",
+        "updatedAt": "2025-09-09T22:42:19.888Z"
+      },
+      "newValues": {
+        "id": "sh_1757457739887_k8tdyghmd",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757457737777",
+        "amount": 1000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:42:19.888Z",
+        "updatedAt": "2025-09-09T22:42:21.915Z"
+      },
+      "createdAt": "2025-09-09T22:42:21.917Z"
+    },
+    {
+      "id": "audit_1757457741921_r3eiixvza",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 81500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-09T22:42:21.921Z"
+    },
+    {
+      "id": "audit_1757457741932_s8thv4cks",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757457739887_k8tdyghmd",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757457739887_k8tdyghmd",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757457737777",
+        "amount": 1000,
+        "status": "cleared",
+        "createdAt": "2025-09-09T22:42:19.888Z",
+        "updatedAt": "2025-09-09T22:42:21.915Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-09T22:42:21.932Z"
+    },
+    {
+      "id": "audit_1757457741939_dtfjiyn6z",
+      "tableName": "transactions",
+      "recordId": "tx_1757457741937_qz5faveul",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757457737777",
+        "type": "credit",
+        "amount": 1000,
+        "status": "success",
+        "note": "From user2",
+        "from_bank": "bank_a",
+        "id": "tx_1757457741937_qz5faveul",
+        "createdAt": "2025-09-09T22:42:21.937Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-09T22:42:21.939Z"
+    },
+    {
+      "id": "audit_1757481854815_ik0d51pqp",
+      "tableName": "transactions",
+      "recordId": "tx_1757481854588_eo19if7ic",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757481854587",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757481854588_eo19if7ic",
+        "createdAt": "2025-09-10T05:24:14.588Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T05:24:14.815Z"
+    },
+    {
+      "id": "audit_1757481854830_3pkmu4b5y",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 81500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 78500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T05:24:14.830Z"
+    },
+    {
+      "id": "audit_1757481859326_fm1g2j6ap",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757481859314_mw7eywv26",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757481859314_mw7eywv26",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757481854587",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T05:24:19.315Z",
+        "updatedAt": "2025-09-10T05:24:19.315Z"
+      },
+      "createdAt": "2025-09-10T05:24:19.326Z"
+    },
+    {
+      "id": "audit_1757481861765_dcvfdmhoh",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757481859314_mw7eywv26",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757481859314_mw7eywv26",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757481854587",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T05:24:19.315Z",
+        "updatedAt": "2025-09-10T05:24:19.315Z"
+      },
+      "newValues": {
+        "id": "sh_1757481859314_mw7eywv26",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757481854587",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T05:24:19.315Z",
+        "updatedAt": "2025-09-10T05:24:21.762Z"
+      },
+      "createdAt": "2025-09-10T05:24:21.765Z"
+    },
+    {
+      "id": "audit_1757481861778_j4n9nby7m",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 62500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 65500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T05:24:21.778Z"
+    },
+    {
+      "id": "audit_1757481861783_512q9wric",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757481859314_mw7eywv26",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757481859314_mw7eywv26",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757481854587",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T05:24:19.315Z",
+        "updatedAt": "2025-09-10T05:24:21.762Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T05:24:21.783Z"
+    },
+    {
+      "id": "audit_1757481861793_gbmmgba1c",
+      "tableName": "transactions",
+      "recordId": "tx_1757481861789_5ng4w09vp",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757481854587",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757481861789_5ng4w09vp",
+        "createdAt": "2025-09-10T05:24:21.789Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T05:24:21.793Z"
+    },
+    {
+      "id": "audit_1757482238127_hkd41gyz9",
+      "tableName": "transactions",
+      "recordId": "tx_1757482238068_8twcd0z8n",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "TEST_FIX_789",
+        "type": "debit",
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "amount": 500,
+        "status": "success",
+        "note": "Test after fixes",
+        "id": "tx_1757482238068_8twcd0z8n",
+        "createdAt": "2025-09-10T05:30:38.068Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T05:30:38.127Z"
+    },
+    {
+      "id": "audit_1757482238133_ckklrbvd5",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 78500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 78000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T05:30:38.133Z"
+    },
+    {
+      "id": "audit_1757482455262_076u6ryyn",
+      "tableName": "transactions",
+      "recordId": "tx_1757482455253_8eyrj96k2",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757482455252",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757482455253_8eyrj96k2",
+        "createdAt": "2025-09-10T05:34:15.253Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T05:34:15.262Z"
+    },
+    {
+      "id": "audit_1757482455283_obie9ylxf",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 78000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 75000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T05:34:15.283Z"
+    },
+    {
+      "id": "audit_1757482457701_lc18y1dw3",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757482457698_5kmi5p5ip",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757482457698_5kmi5p5ip",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757482455252",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T05:34:17.698Z",
+        "updatedAt": "2025-09-10T05:34:17.698Z"
+      },
+      "createdAt": "2025-09-10T05:34:17.701Z"
+    },
+    {
+      "id": "audit_1757482459731_ksbnmywee",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757482457698_5kmi5p5ip",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757482457698_5kmi5p5ip",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757482455252",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T05:34:17.698Z",
+        "updatedAt": "2025-09-10T05:34:17.698Z"
+      },
+      "newValues": {
+        "id": "sh_1757482457698_5kmi5p5ip",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757482455252",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T05:34:17.698Z",
+        "updatedAt": "2025-09-10T05:34:19.727Z"
+      },
+      "createdAt": "2025-09-10T05:34:19.731Z"
+    },
+    {
+      "id": "audit_1757482459764_aum8lbcws",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 65500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T05:34:19.764Z"
+    },
+    {
+      "id": "audit_1757482459773_ei07rxzhs",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757482457698_5kmi5p5ip",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757482457698_5kmi5p5ip",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757482455252",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T05:34:17.698Z",
+        "updatedAt": "2025-09-10T05:34:19.727Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T05:34:19.773Z"
+    },
+    {
+      "id": "audit_1757482459779_u6fpypp9z",
+      "tableName": "transactions",
+      "recordId": "tx_1757482459776_r1ivesx21",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757482455252",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757482459776_r1ivesx21",
+        "createdAt": "2025-09-10T05:34:19.776Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T05:34:19.779Z"
+    },
+    {
+      "id": "audit_1757490769908_3ptk3sq9m",
+      "tableName": "transactions",
+      "recordId": "tx_1757490769882_kcq5keomm",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757490769880",
+        "type": "debit",
+        "amount": 5000,
+        "to_account": "0123456789",
+        "from_bank": "bank_a",
+        "note": "GGs",
+        "status": "success",
+        "userId": "user2",
+        "id": "tx_1757490769882_kcq5keomm",
+        "createdAt": "2025-09-10T07:52:49.883Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T07:52:49.908Z"
+    },
+    {
+      "id": "audit_1757490769941_h08bayrin",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:52:49.941Z"
+    },
+    {
+      "id": "audit_1757490772121_onunftu9g",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490772114_qgrohcy68",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757490772114_qgrohcy68",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490769880",
+        "amount": 5000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:52:52.114Z",
+        "updatedAt": "2025-09-10T07:52:52.114Z"
+      },
+      "createdAt": "2025-09-10T07:52:52.121Z"
+    },
+    {
+      "id": "audit_1757490774153_oauwrrx9h",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490772114_qgrohcy68",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757490772114_qgrohcy68",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490769880",
+        "amount": 5000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:52:52.114Z",
+        "updatedAt": "2025-09-10T07:52:52.114Z"
+      },
+      "newValues": {
+        "id": "sh_1757490772114_qgrohcy68",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490769880",
+        "amount": 5000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:52:52.114Z",
+        "updatedAt": "2025-09-10T07:52:54.149Z"
+      },
+      "createdAt": "2025-09-10T07:52:54.153Z"
+    },
+    {
+      "id": "audit_1757490774168_jecouqfrt",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 75000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:52:54.168Z"
+    },
+    {
+      "id": "audit_1757490774182_dgefk3k42",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490772114_qgrohcy68",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757490772114_qgrohcy68",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490769880",
+        "amount": 5000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:52:52.114Z",
+        "updatedAt": "2025-09-10T07:52:54.149Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T07:52:54.182Z"
+    },
+    {
+      "id": "audit_1757490774197_vbuhy0v73",
+      "tableName": "transactions",
+      "recordId": "tx_1757490774185_6va68n5cf",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757490769880",
+        "type": "credit",
+        "amount": 5000,
+        "status": "success",
+        "note": "From user2",
+        "from_bank": "bank_a",
+        "id": "tx_1757490774185_6va68n5cf",
+        "createdAt": "2025-09-10T07:52:54.185Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T07:52:54.197Z"
+    },
+    {
+      "id": "audit_1757490828939_fwvtqbeb7",
+      "tableName": "transactions",
+      "recordId": "tx_1757490828933_c9i6cqvrc",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757490828924",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "0123456789",
+        "from_bank": "bank_a",
+        "note": "GGw23",
+        "status": "success",
+        "userId": "user2",
+        "id": "tx_1757490828933_c9i6cqvrc",
+        "createdAt": "2025-09-10T07:53:48.933Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T07:53:48.939Z"
+    },
+    {
+      "id": "audit_1757490828956_t56tetz6m",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:53:48.956Z"
+    },
+    {
+      "id": "audit_1757490830016_xauoh5dir",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490829956_dzx1033r8",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757490829956_dzx1033r8",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490828924",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:53:49.960Z",
+        "updatedAt": "2025-09-10T07:53:49.960Z"
+      },
+      "createdAt": "2025-09-10T07:53:50.016Z"
+    },
+    {
+      "id": "audit_1757490832103_tfumklcof",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490829956_dzx1033r8",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757490829956_dzx1033r8",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490828924",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:53:49.960Z",
+        "updatedAt": "2025-09-10T07:53:49.960Z"
+      },
+      "newValues": {
+        "id": "sh_1757490829956_dzx1033r8",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490828924",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:53:49.960Z",
+        "updatedAt": "2025-09-10T07:53:52.102Z"
+      },
+      "createdAt": "2025-09-10T07:53:52.104Z"
+    },
+    {
+      "id": "audit_1757490832110_birpjvk0b",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:53:52.110Z"
+    },
+    {
+      "id": "audit_1757490832141_h1srswbmv",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490829956_dzx1033r8",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757490829956_dzx1033r8",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757490828924",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:53:49.960Z",
+        "updatedAt": "2025-09-10T07:53:52.102Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T07:53:52.141Z"
+    },
+    {
+      "id": "audit_1757490832285_pzxmfe2oj",
+      "tableName": "transactions",
+      "recordId": "tx_1757490832192_ha8p0fzqz",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757490828924",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user2",
+        "from_bank": "bank_a",
+        "id": "tx_1757490832192_ha8p0fzqz",
+        "createdAt": "2025-09-10T07:53:52.192Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T07:53:52.285Z"
+    },
+    {
+      "id": "audit_1757490891946_hh93mw19v",
+      "tableName": "transactions",
+      "recordId": "tx_1757490891944_jhkyf4hnm",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757490891944",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757490891944_jhkyf4hnm",
+        "createdAt": "2025-09-10T07:54:51.944Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T07:54:51.946Z"
+    },
+    {
+      "id": "audit_1757490891952_49czr4thb",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:54:51.952Z"
+    },
+    {
+      "id": "audit_1757490893424_uuh7lgnid",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490893417_9zdlwgd1c",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757490893417_9zdlwgd1c",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757490891944",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:54:53.423Z",
+        "updatedAt": "2025-09-10T07:54:53.423Z"
+      },
+      "createdAt": "2025-09-10T07:54:53.424Z"
+    },
+    {
+      "id": "audit_1757490895457_zhy516ndg",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490893417_9zdlwgd1c",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757490893417_9zdlwgd1c",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757490891944",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:54:53.423Z",
+        "updatedAt": "2025-09-10T07:54:53.423Z"
+      },
+      "newValues": {
+        "id": "sh_1757490893417_9zdlwgd1c",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757490891944",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:54:53.423Z",
+        "updatedAt": "2025-09-10T07:54:55.454Z"
+      },
+      "createdAt": "2025-09-10T07:54:55.457Z"
+    },
+    {
+      "id": "audit_1757490895461_pgrh3f8ic",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:54:55.461Z"
+    },
+    {
+      "id": "audit_1757490895464_6xngezz07",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757490893417_9zdlwgd1c",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757490893417_9zdlwgd1c",
+        "accountId": "acc_2",
+        "txn_ref": "WT_1757490891944",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:54:53.423Z",
+        "updatedAt": "2025-09-10T07:54:55.454Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T07:54:55.464Z"
+    },
+    {
+      "id": "audit_1757490895476_v9zoyafar",
+      "tableName": "transactions",
+      "recordId": "tx_1757490895471_n29hn82jo",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757490891944",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user1",
+        "from_bank": "bank_a",
+        "id": "tx_1757490895471_n29hn82jo",
+        "createdAt": "2025-09-10T07:54:55.471Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T07:54:55.477Z"
+    },
+    {
+      "id": "audit_1757491037827_de0fline8",
+      "tableName": "transactions",
+      "recordId": "tx_1757491037821_zfmpqbi3d",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757491037819",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "0123456789",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user2",
+        "id": "tx_1757491037821_zfmpqbi3d",
+        "createdAt": "2025-09-10T07:57:17.821Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T07:57:17.827Z"
+    },
+    {
+      "id": "audit_1757491037832_bzy26cz02",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:57:17.832Z"
+    },
+    {
+      "id": "audit_1757491039457_cs8s28ywl",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757491039450_31bmf2eci",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "id": "sh_1757491039450_31bmf2eci",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757491037819",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:57:19.450Z",
+        "updatedAt": "2025-09-10T07:57:19.450Z"
+      },
+      "createdAt": "2025-09-10T07:57:19.457Z"
+    },
+    {
+      "id": "audit_1757491041484_pa5xowihb",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757491039450_31bmf2eci",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "sh_1757491039450_31bmf2eci",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757491037819",
+        "amount": 3000,
+        "status": "pending",
+        "createdAt": "2025-09-10T07:57:19.450Z",
+        "updatedAt": "2025-09-10T07:57:19.450Z"
+      },
+      "newValues": {
+        "id": "sh_1757491039450_31bmf2eci",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757491037819",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:57:19.450Z",
+        "updatedAt": "2025-09-10T07:57:21.480Z"
+      },
+      "createdAt": "2025-09-10T07:57:21.484Z"
+    },
+    {
+      "id": "audit_1757491041487_lob3kyf8k",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T07:57:21.487Z"
+    },
+    {
+      "id": "audit_1757491041492_l13tfi1kc",
+      "tableName": "shadow_entries",
+      "recordId": "sh_1757491039450_31bmf2eci",
+      "action": "DELETE",
+      "oldValues": {
+        "id": "sh_1757491039450_31bmf2eci",
+        "accountId": "acc_1",
+        "txn_ref": "WT_1757491037819",
+        "amount": 3000,
+        "status": "cleared",
+        "createdAt": "2025-09-10T07:57:19.450Z",
+        "updatedAt": "2025-09-10T07:57:21.480Z"
+      },
+      "newValues": null,
+      "createdAt": "2025-09-10T07:57:21.492Z"
+    },
+    {
+      "id": "audit_1757491041496_8ylpitu5j",
+      "tableName": "transactions",
+      "recordId": "tx_1757491041494_h0tuokm1v",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757491037819",
+        "type": "credit",
+        "amount": 3000,
+        "status": "success",
+        "note": "From user2",
+        "from_bank": "bank_a",
+        "id": "tx_1757491041494_h0tuokm1v",
+        "createdAt": "2025-09-10T07:57:21.494Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T07:57:21.496Z"
+    },
+    {
+      "id": "audit_1757491636548_r493sjo5r",
+      "tableName": "transactions",
+      "recordId": "tx_1757491636499_ugt1egch4",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "DIRECT_TEST_123",
+        "type": "debit",
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "amount": 1000,
+        "status": "success",
+        "note": "Direct transfer test",
+        "id": "tx_1757491636499_ugt1egch4",
+        "createdAt": "2025-09-10T08:07:16.499Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:07:16.548Z"
+    },
+    {
+      "id": "audit_1757491636559_vd7hcmwhf",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 83000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 82000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:07:16.559Z"
+    },
+    {
+      "id": "audit_1757491821832_ok2c09845",
+      "tableName": "transactions",
+      "recordId": "tx_1757491821829_4uzj9hjkd",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757491821829",
+        "type": "debit",
+        "amount": 2000,
+        "to_account": "9876543210",
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user1",
+        "id": "tx_1757491821829_4uzj9hjkd",
+        "createdAt": "2025-09-10T08:10:21.830Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:10:21.832Z"
+    },
+    {
+      "id": "audit_1757491821838_941xoom2u",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 82000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:10:21.838Z"
+    },
+    {
+      "id": "audit_1757491821845_8vaesxhe0",
+      "tableName": "transactions",
+      "recordId": "tx_1757491821839_1vbcko0gv",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "txn_ref": "WT_1757491821829",
+        "type": "credit",
+        "amount": 2000,
+        "from_bank": "bank_a",
+        "note": "Groceries",
+        "status": "success",
+        "userId": "user2",
+        "id": "tx_1757491821839_1vbcko0gv",
+        "createdAt": "2025-09-10T08:10:21.839Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:10:21.845Z"
+    },
+    {
+      "id": "audit_1757491821849_palici83c",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 60500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 62500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:10:21.849Z"
+    },
+    {
+      "id": "audit_1757492390156_p14rbwaza",
+      "tableName": "transactions",
+      "recordId": "tx_1757492390125_cjf04aqf9",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757492390125",
+        "type": "debit",
+        "amount": 1000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Test direct transfer",
+        "status": "success",
+        "id": "tx_1757492390125_cjf04aqf9",
+        "createdAt": "2025-09-10T08:19:50.125Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:19:50.156Z"
+    },
+    {
+      "id": "audit_1757492390165_sgakpgfrc",
+      "tableName": "transactions",
+      "recordId": "tx_1757492390158_6jky400ln",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757492390125",
+        "type": "credit",
+        "amount": 1000,
+        "from_bank": "WemaTrust",
+        "note": "Test direct transfer",
+        "status": "success",
+        "id": "tx_1757492390158_6jky400ln",
+        "createdAt": "2025-09-10T08:19:50.158Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:19:50.165Z"
+    },
+    {
+      "id": "audit_1757492390170_rxq6xdzrj",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 80000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 79000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:19:50.170Z"
+    },
+    {
+      "id": "audit_1757492390173_nncikfwpx",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 62500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:19:50.173Z"
+    },
+    {
+      "id": "audit_1757492623207_pcxaew4jr",
+      "tableName": "transactions",
+      "recordId": "tx_1757492623203_j0ahj3ufi",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757492623190",
+        "type": "debit",
+        "amount": 2000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Groceries",
+        "status": "success",
+        "id": "tx_1757492623203_j0ahj3ufi",
+        "createdAt": "2025-09-10T08:23:43.203Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:23:43.207Z"
+    },
+    {
+      "id": "audit_1757492623212_0sc1sj9w1",
+      "tableName": "transactions",
+      "recordId": "tx_1757492623209_fhuchk73b",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757492623190",
+        "type": "credit",
+        "amount": 2000,
+        "from_bank": "WemaTrust",
+        "note": "Groceries",
+        "status": "success",
+        "id": "tx_1757492623209_fhuchk73b",
+        "createdAt": "2025-09-10T08:23:43.209Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:23:43.212Z"
+    },
+    {
+      "id": "audit_1757492623216_tmw2ul2sh",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 79000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 77000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:23:43.216Z"
+    },
+    {
+      "id": "audit_1757492623220_5b0mszs7e",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 63500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 65500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:23:43.220Z"
+    },
+    {
+      "id": "audit_1757493020251_aqxhcbs3n",
+      "tableName": "transactions",
+      "recordId": "tx_1757493020248_2faitpm79",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493020248",
+        "type": "debit",
+        "amount": 500,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Test toast fix",
+        "status": "success",
+        "id": "tx_1757493020248_2faitpm79",
+        "createdAt": "2025-09-10T08:30:20.248Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:30:20.251Z"
+    },
+    {
+      "id": "audit_1757493020255_h0rykeids",
+      "tableName": "transactions",
+      "recordId": "tx_1757493020253_g0fyfrzdv",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493020248",
+        "type": "credit",
+        "amount": 500,
+        "from_bank": "WemaTrust",
+        "note": "Test toast fix",
+        "status": "success",
+        "id": "tx_1757493020253_g0fyfrzdv",
+        "createdAt": "2025-09-10T08:30:20.253Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:30:20.255Z"
+    },
+    {
+      "id": "audit_1757493020270_z5sc0yidk",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 77000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 76500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:30:20.270Z"
+    },
+    {
+      "id": "audit_1757493020284_z9fjnqy88",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 65500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 66000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:30:20.284Z"
+    },
+    {
+      "id": "audit_1757493160493_v11j3h88l",
+      "tableName": "transactions",
+      "recordId": "tx_1757493160491_zecnj1xjb",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493160491",
+        "type": "debit",
+        "amount": 2000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Groceries",
+        "status": "success",
+        "id": "tx_1757493160491_zecnj1xjb",
+        "createdAt": "2025-09-10T08:32:40.491Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:32:40.493Z"
+    },
+    {
+      "id": "audit_1757493160504_9cyhetrp8",
+      "tableName": "transactions",
+      "recordId": "tx_1757493160495_rp7nmr8un",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493160491",
+        "type": "credit",
+        "amount": 2000,
+        "from_bank": "WemaTrust",
+        "note": "Groceries",
+        "status": "success",
+        "id": "tx_1757493160495_rp7nmr8un",
+        "createdAt": "2025-09-10T08:32:40.495Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:32:40.504Z"
+    },
+    {
+      "id": "audit_1757493160509_xvkikm1qu",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 76500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 74500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:32:40.509Z"
+    },
+    {
+      "id": "audit_1757493160522_w3e751qvu",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 66000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:32:40.522Z"
+    },
+    {
+      "id": "audit_1757493492396_k090ej378",
+      "tableName": "transactions",
+      "recordId": "tx_1757493492370_3sbcrwbed",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493492370",
+        "type": "debit",
+        "amount": 1000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Test SMS notifications",
+        "status": "success",
+        "id": "tx_1757493492370_3sbcrwbed",
+        "createdAt": "2025-09-10T08:38:12.370Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:38:12.396Z"
+    },
+    {
+      "id": "audit_1757493492400_hdek5uqup",
+      "tableName": "transactions",
+      "recordId": "tx_1757493492398_07g201d82",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493492370",
+        "type": "credit",
+        "amount": 1000,
+        "from_bank": "WemaTrust",
+        "note": "Test SMS notifications",
+        "status": "success",
+        "id": "tx_1757493492398_07g201d82",
+        "createdAt": "2025-09-10T08:38:12.398Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:38:12.400Z"
+    },
+    {
+      "id": "audit_1757493492407_l7y7o7eqs",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 74500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 73500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:38:12.407Z"
+    },
+    {
+      "id": "audit_1757493492414_hlffevpmw",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 69000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:38:12.414Z"
+    },
+    {
+      "id": "audit_1757493534428_ey8forwmz",
+      "tableName": "transactions",
+      "recordId": "tx_1757493534419_gdzof8559",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493534419",
+        "type": "debit",
+        "amount": 500,
+        "to_account": "0123456789",
+        "from_bank": "WemaTrust",
+        "note": "Test SMS from user2",
+        "status": "success",
+        "id": "tx_1757493534419_gdzof8559",
+        "createdAt": "2025-09-10T08:38:54.419Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:38:54.428Z"
+    },
+    {
+      "id": "audit_1757493534432_1p7qkp04h",
+      "tableName": "transactions",
+      "recordId": "tx_1757493534430_4g9791pbe",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493534419",
+        "type": "credit",
+        "amount": 500,
+        "from_bank": "WemaTrust",
+        "note": "Test SMS from user2",
+        "status": "success",
+        "id": "tx_1757493534430_4g9791pbe",
+        "createdAt": "2025-09-10T08:38:54.430Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:38:54.432Z"
+    },
+    {
+      "id": "audit_1757493534436_9dkrwqkox",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 69000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:38:54.436Z"
+    },
+    {
+      "id": "audit_1757493534446_411g9urbm",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 73500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 74000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:38:54.446Z"
+    },
+    {
+      "id": "audit_1757493734999_ro3fvdb34",
+      "tableName": "transactions",
+      "recordId": "tx_1757493734982_py0iw7buv",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493734979",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "Groceri",
+        "status": "success",
+        "id": "tx_1757493734982_py0iw7buv",
+        "createdAt": "2025-09-10T08:42:14.982Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:42:14.999Z"
+    },
+    {
+      "id": "audit_1757493735004_v9k2d7z7f",
+      "tableName": "transactions",
+      "recordId": "tx_1757493735002_kd3k6ccyv",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493734979",
+        "type": "credit",
+        "amount": 3000,
+        "from_bank": "WemaTrust",
+        "note": "Groceri",
+        "status": "success",
+        "id": "tx_1757493735002_kd3k6ccyv",
+        "createdAt": "2025-09-10T08:42:15.002Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:42:15.014Z"
+    },
+    {
+      "id": "audit_1757493735036_t5z4hb548",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 74000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 71000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:42:15.036Z"
+    },
+    {
+      "id": "audit_1757493735068_i3x9g6xbf",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 68500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 71500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:42:15.068Z"
+    },
+    {
+      "id": "audit_1757493953323_iggltjjg5",
+      "tableName": "transactions",
+      "recordId": "tx_1757493953285_7trxo2sip",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757493953285",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757493953285_7trxo2sip",
+        "createdAt": "2025-09-10T08:45:53.285Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:45:53.323Z"
+    },
+    {
+      "id": "audit_1757493953339_tl71c8xca",
+      "tableName": "transactions",
+      "recordId": "tx_1757493953335_r3sd87cqa",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757493953285",
+        "type": "credit",
+        "amount": 3000,
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757493953335_r3sd87cqa",
+        "createdAt": "2025-09-10T08:45:53.335Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:45:53.339Z"
+    },
+    {
+      "id": "audit_1757493953355_can7hb1e9",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 71000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 68000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:45:53.355Z"
+    },
+    {
+      "id": "audit_1757493953484_tjbh5g266",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 71500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 74500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:45:53.484Z"
+    },
+    {
+      "id": "audit_1757494008548_a6xdqn5qk",
+      "tableName": "transactions",
+      "recordId": "tx_1757494008546_8i5f7qb09",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757494008546",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757494008546_8i5f7qb09",
+        "createdAt": "2025-09-10T08:46:48.546Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:46:48.548Z"
+    },
+    {
+      "id": "audit_1757494008552_6txto0co5",
+      "tableName": "transactions",
+      "recordId": "tx_1757494008550_moqt0x0et",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757494008546",
+        "type": "credit",
+        "amount": 3000,
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757494008550_moqt0x0et",
+        "createdAt": "2025-09-10T08:46:48.550Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:46:48.552Z"
+    },
+    {
+      "id": "audit_1757494008556_3k2wixg2t",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 68000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 65000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:46:48.556Z"
+    },
+    {
+      "id": "audit_1757494008560_17kbwlx8i",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 74500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 77500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:46:48.560Z"
+    },
+    {
+      "id": "audit_1757494485412_rk2kgofci",
+      "tableName": "transactions",
+      "recordId": "tx_1757494485408_dn6616q32",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user1",
+        "txn_ref": "WT_1757494485408",
+        "type": "debit",
+        "amount": 3000,
+        "to_account": "9876543210",
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757494485408_dn6616q32",
+        "createdAt": "2025-09-10T08:54:45.408Z"
+      },
+      "userId": "user1",
+      "createdAt": "2025-09-10T08:54:45.412Z"
+    },
+    {
+      "id": "audit_1757494485420_34p9r1zn4",
+      "tableName": "transactions",
+      "recordId": "tx_1757494485414_uq9ajjrzz",
+      "action": "CREATE",
+      "oldValues": null,
+      "newValues": {
+        "userId": "user2",
+        "txn_ref": "WT_1757494485408",
+        "type": "credit",
+        "amount": 3000,
+        "from_bank": "WemaTrust",
+        "note": "GGs",
+        "status": "success",
+        "id": "tx_1757494485414_uq9ajjrzz",
+        "createdAt": "2025-09-10T08:54:45.414Z"
+      },
+      "userId": "user2",
+      "createdAt": "2025-09-10T08:54:45.420Z"
+    },
+    {
+      "id": "audit_1757494485425_m5mrzhp39",
+      "tableName": "accounts",
+      "recordId": "acc_1",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 65000,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_1",
+        "name": "Demo User 1",
+        "accountNumber": "0123456789",
+        "balance": 62000,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:54:45.425Z"
+    },
+    {
+      "id": "audit_1757494485429_x69ydseoz",
+      "tableName": "accounts",
+      "recordId": "acc_2",
+      "action": "UPDATE",
+      "oldValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 77500,
+        "shadowEntries": []
+      },
+      "newValues": {
+        "id": "acc_2",
+        "name": "Demo User 2",
+        "accountNumber": "9876543210",
+        "balance": 80500,
+        "shadowEntries": []
+      },
+      "createdAt": "2025-09-10T08:54:45.429Z"
+    }
+  ]
+}

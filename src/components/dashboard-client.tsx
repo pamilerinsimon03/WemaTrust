@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Account, PartnerBank, ServerEvent, Transaction, User } from '@/lib/types';
 import { AccountBalance } from './account-balance';
 import { TransferForm } from './transfer-form';
@@ -111,6 +111,46 @@ export function DashboardClient({
   const [partnerBanks, setPartnerBanks] = useState<PartnerBank[]>(initialPartnerBanks);
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
   const { toast } = useToast();
+  const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Function to refresh account data with debouncing
+  const refreshAccountData = useCallback(async () => {
+    // Clear any existing timeout
+    if (refreshTimeoutRef.current) {
+      clearTimeout(refreshTimeoutRef.current);
+    }
+
+    // Set a new timeout to debounce the refresh
+    refreshTimeoutRef.current = setTimeout(async () => {
+      try {
+        const accountResponse = await fetch(`/api/accounts?userId=${user.id}`);
+        if (accountResponse.ok) {
+          const accountData = await accountResponse.json();
+          setAccount(accountData);
+        }
+
+        const transactionsResponse = await fetch(`/api/transactions?userId=${user.id}`);
+        if (transactionsResponse.ok) {
+          const transactionsData = await transactionsResponse.json();
+          const userTransactions = Array.isArray(transactionsData) 
+            ? transactionsData 
+            : transactionsData.transactions || [];
+          setTransactions(userTransactions);
+        }
+      } catch (error) {
+        console.error('Error refreshing account data:', error);
+      }
+    }, 200); // 200ms debounce
+  }, [user.id]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (refreshTimeoutRef.current) {
+        clearTimeout(refreshTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const eventSource = new EventSource('/api/events');
@@ -212,7 +252,7 @@ export function DashboardClient({
               {account ? <AccountBalance account={account} /> : 
                 isAdmin && <AdminTool banks={partnerBanks} onStatusChange={handleAdminStatusChange} />
               }
-              {account && <TransferForm user={user} partnerBanks={partnerBanks} />}
+              {account && <TransferForm user={user} partnerBanks={partnerBanks} onTransferSuccess={refreshAccountData} />}
           </div>
           <div className="lg:col-span-2 space-y-6 md:space-y-8">
               <PartnerStatus partnerBanks={partnerBanks} />
